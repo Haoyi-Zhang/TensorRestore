@@ -1,0 +1,30 @@
+[
+  {
+    "events": 2,
+    "ideals": 7,
+    "mismatches": 0,
+    "posets": 2,
+    "weight_cases": 18
+  },
+  {
+    "events": 3,
+    "ideals": 40,
+    "mismatches": 0,
+    "posets": 7,
+    "weight_cases": 189
+  },
+  {
+    "events": 4,
+    "ideals": 357,
+    "mismatches": 0,
+    "posets": 40,
+    "weight_cases": 3240
+  },
+  {
+    "events": 5,
+    "ideals": 4824,
+    "mismatches": 0,
+    "posets": 357,
+    "weight_cases": 86751
+  }
+]

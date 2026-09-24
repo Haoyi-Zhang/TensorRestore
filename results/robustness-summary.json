@@ -1,0 +1,24 @@
+{
+  "black_box_cli": {
+    "accepted_cases": 1,
+    "cleanly_rejected_cases": 3,
+    "tracebacks": 0
+  },
+  "heldout_provenance": {
+    "cases": 1152,
+    "event_count": 6,
+    "graphs": 96,
+    "linear_extension_replays": 11542,
+    "mismatches": 0,
+    "role": "frozen post-formulation implementation holdout; not workload breadth",
+    "seed": 8675309
+  },
+  "metamorphic": {
+    "checks": 4,
+    "mismatches": 0
+  },
+  "mutation_sensitivity": {
+    "detected_by_negative_control": 1,
+    "mutants": 1
+  }
+}

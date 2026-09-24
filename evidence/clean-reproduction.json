@@ -1,0 +1,35 @@
+{
+  "all_suite_mismatches": 0,
+  "commands": [
+    "python run.py --suite all --out <external-dir>",
+    "python compare.py results <external-dir>",
+    "python -m refcert check results/case-packet-fan-4.json",
+    "python tables.py --results results --out <external-dir>",
+    "python reference_audit.py --bib ../paper/references.bib --tex ../paper/paper.tex",
+    "python build.py"
+  ],
+  "deterministic_compare": "MATCH: deterministic summaries, all supplied cases, and all CSV result columns except timing.",
+  "interpretation": "Local clean-tree self-reproduction, not independent third-party reproduction.",
+  "paper_pages": 24,
+  "paper_sha256": "b6bc5c382b45629bc1f55833033f11c72c89d3c39ffe02cd0194a48bf8c0528d",
+  "reference_audit_status": "PASS",
+  "references_start_page": 21,
+  "representative_case": {
+    "accepted": true,
+    "events": 14,
+    "exact_peak_cells": 11,
+    "packet_effects": 8,
+    "packet_events": 4,
+    "read_obligations": 27,
+    "upper_cells": 11
+  },
+  "resource_observation": {
+    "cpu_seconds": 13.845473717,
+    "peak_rss_kib": 130736,
+    "wall_seconds": 16.423229426000034
+  },
+  "scholarly_references": 73,
+  "scope": "Clean copy of the final full project before archive creation; deterministic scientific outputs compared against frozen results.",
+  "status": "PASS",
+  "unit_tests": 29
+}

@@ -1,0 +1,38 @@
+{
+  "candidate": "universal_last_writer_rescue",
+  "counts": {
+    "2": {
+      "distinct_naturally_labeled_posets": 2,
+      "tagged_read_cases": 12,
+      "topological_orders_enumerated": 3
+    },
+    "3": {
+      "distinct_naturally_labeled_posets": 7,
+      "tagged_read_cases": 189,
+      "topological_orders_enumerated": 20
+    },
+    "4": {
+      "distinct_naturally_labeled_posets": 40,
+      "tagged_read_cases": 4320,
+      "topological_orders_enumerated": 260
+    },
+    "5": {
+      "distinct_naturally_labeled_posets": 357,
+      "tagged_read_cases": 144585,
+      "topological_orders_enumerated": 6105
+    }
+  },
+  "mismatches": [],
+  "diamond": {
+    "accepted": true,
+    "single_rescuer_accepted": false,
+    "linearizations": 6
+  },
+  "wall_seconds": 0.5197608159999163,
+  "cpu_seconds": 0.516626972,
+  "peak_rss_kib": 92588,
+  "workers": 1,
+  "arithmetic": "exact integer event identifiers; two provenance tags plus no-write",
+  "seed": null,
+  "status": "PASS"
+}

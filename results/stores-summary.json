@@ -1,0 +1,90 @@
+{
+  "exhaustive": [
+    {
+      "after_unobservable_store_removal": 0,
+      "events": 2,
+      "mixed_cases": 8,
+      "posets": 2,
+      "safe_cases": 6,
+      "single_rejections": 0
+    },
+    {
+      "after_unobservable_store_removal": 0,
+      "events": 3,
+      "mixed_cases": 126,
+      "posets": 7,
+      "safe_cases": 70,
+      "single_rejections": 0
+    },
+    {
+      "after_unobservable_store_removal": 0,
+      "events": 4,
+      "mixed_cases": 2560,
+      "posets": 40,
+      "safe_cases": 984,
+      "single_rejections": 0
+    },
+    {
+      "after_unobservable_store_removal": 0,
+      "events": 5,
+      "mixed_cases": 74970,
+      "posets": 357,
+      "safe_cases": 19035,
+      "single_rejections": 6
+    }
+  ],
+  "joint_erasure_counterexample": {
+    "delete_both_observed_values": [
+      0
+    ],
+    "delete_first_observed_values": [
+      1
+    ],
+    "delete_second_observed_values": [
+      1
+    ],
+    "events": [
+      "write-1-a",
+      "write-1-b",
+      "read-1"
+    ],
+    "interpretation": "Each write is individually erasable, but the pair is not jointly erasable.",
+    "linear_extensions": 2,
+    "original_observed_values": [
+      1
+    ]
+  },
+  "six_event_caution": {
+    "all_writes_potentially_observable": true,
+    "interpretation": "Two writes repeat the initial tag. Removing both preserves both reads; mere potential observability is not enough to exclude redundant stores.",
+    "labels": [
+      0,
+      0,
+      -1,
+      1,
+      1,
+      -1
+    ],
+    "linear_extensions": 16,
+    "pred": [
+      0,
+      0,
+      0,
+      5,
+      6,
+      31
+    ],
+    "read_last_writers": {
+      "2": [
+        -1,
+        0,
+        1
+      ],
+      "5": [
+        3,
+        4
+      ]
+    },
+    "single_rescuer_accepts_final_read": false
+  }
+}

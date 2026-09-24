@@ -1,0 +1,34 @@
+test_atomic_packet_fan_all_orders (test_checker.Certificates.test_atomic_packet_fan_all_orders) ... ok
+test_bad_location (test_checker.Certificates.test_bad_location) ... ok
+test_bool_budget_rejected (test_checker.Certificates.test_bool_budget_rejected) ... ok
+test_budget_below_exact (test_checker.Certificates.test_budget_below_exact) ... ok
+test_capacity_violation (test_checker.Certificates.test_capacity_violation) ... ok
+test_conservation_violation (test_checker.Certificates.test_conservation_violation) ... ok
+test_cycle (test_checker.Certificates.test_cycle) ... ok
+test_diamond_all_orders (test_checker.Certificates.test_diamond_all_orders) ... ok
+test_duplicate_flow_arc (test_checker.Certificates.test_duplicate_flow_arc) ... ok
+test_each_packet_and_restore_is_indispensable_in_shared_interface (test_checker.Certificates.test_each_packet_and_restore_is_indispensable_in_shared_interface) ... ok
+test_false_peak_ideal (test_checker.Certificates.test_false_peak_ideal) ... ok
+test_fixed_read_recoloring_one_cell_lower_bound (test_checker.Certificates.test_fixed_read_recoloring_one_cell_lower_bound) ... ok
+test_forged_copy_tag (test_checker.Certificates.test_forged_copy_tag) ... ok
+test_forwarding_preserves_atoms_and_orders_but_changes_final_read (test_checker.Certificates.test_forwarding_preserves_atoms_and_orders_but_changes_final_read) ... ok
+test_in_place_read_before_write (test_checker.Certificates.test_in_place_read_before_write) ... ok
+test_input_is_readonly (test_checker.Certificates.test_input_is_readonly) ... ok
+test_missing_lifetime (test_checker.Certificates.test_missing_lifetime) ... ok
+test_omitted_rescue (test_checker.Certificates.test_omitted_rescue) ... ok
+test_order_strengthening_reuses_core (test_checker.Certificates.test_order_strengthening_reuses_core) ... ok
+test_packet_baselines_and_edge_repair (test_checker.Certificates.test_packet_baselines_and_edge_repair) ... ok
+test_packet_destinations_must_be_distinct (test_checker.Certificates.test_packet_destinations_must_be_distinct) ... ok
+test_packet_reads_use_pre_event_store (test_checker.Certificates.test_packet_reads_use_pre_event_store) ... ok
+test_required_source_unavailable (test_checker.Certificates.test_required_source_unavailable) ... ok
+test_unknown_restoring_writer_rejected (test_checker.Certificates.test_unknown_restoring_writer_rejected) ... ok
+test_unsafe_diamond (test_checker.Certificates.test_unsafe_diamond) ... ok
+test_valid (test_checker.Certificates.test_valid) ... ok
+test_wrong_arity (test_checker.Certificates.test_wrong_arity) ... ok
+test_wrong_operand (test_checker.Certificates.test_wrong_operand) ... ok
+test_wrong_operation (test_checker.Certificates.test_wrong_operation) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.096s
+
+OK

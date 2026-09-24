@@ -1,0 +1,373 @@
+{
+  "address_space_limit_bytes": 3221225472,
+  "cpu_limit_seconds": 240,
+  "cpu_seconds": 13.230753093999999,
+  "peak_rss_kib": 129832,
+  "results": {
+    "cover": {
+      "by_universe_size": [
+        {
+          "mismatches": 0,
+          "set_systems": 1,
+          "universe_size": 1
+        },
+        {
+          "mismatches": 0,
+          "set_systems": 5,
+          "universe_size": 2
+        },
+        {
+          "mismatches": 0,
+          "set_systems": 101,
+          "universe_size": 3
+        },
+        {
+          "mismatches": 0,
+          "set_systems": 4505,
+          "universe_size": 4
+        }
+      ],
+      "mismatches": 0,
+      "nonminimal_greedy_witness": {
+        "greedy_choice": [
+          0,
+          1,
+          2
+        ],
+        "greedy_size": 3,
+        "optimum_choice": [
+          1,
+          2
+        ],
+        "optimum_size": 2,
+        "sets": [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            1,
+            4
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ],
+        "universe_size": 6
+      },
+      "systems_checked": 4612
+    },
+    "kernels": {
+      "core_certificate_reuses": 234,
+      "diamond_linearizations": 6,
+      "dimensions": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "families": 8,
+      "input_seed_rule": "271828 + input_count",
+      "interpretation": "Hand-written bounded mathematical constructors; not production compiler integration or workload breadth.",
+      "max_events": 716,
+      "mismatches": 0,
+      "order_seeds": [
+        -1,
+        -2,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "schedule_configurations": 234,
+      "single_rescuer_accepted_configurations": 234,
+      "source_instances": 40,
+      "source_reference_comparisons": 200,
+      "target_executions": 9360,
+      "unsafe_diamond_linearizations": 10
+    },
+    "memory": [
+      {
+        "events": 2,
+        "ideals": 7,
+        "mismatches": 0,
+        "posets": 2,
+        "weight_cases": 18
+      },
+      {
+        "events": 3,
+        "ideals": 40,
+        "mismatches": 0,
+        "posets": 7,
+        "weight_cases": 189
+      },
+      {
+        "events": 4,
+        "ideals": 357,
+        "mismatches": 0,
+        "posets": 40,
+        "weight_cases": 3240
+      },
+      {
+        "events": 5,
+        "ideals": 4824,
+        "mismatches": 0,
+        "posets": 357,
+        "weight_cases": 86751
+      }
+    ],
+    "packets": {
+      "branch_counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        16,
+        24,
+        32,
+        48,
+        64,
+        96,
+        128,
+        192
+      ],
+      "configurations": 16,
+      "exact_repaired_orders_enumerated": 71225,
+      "exact_unrestricted_orders_enumerated": 116016,
+      "fixed_read_layout_assignments_checked": 82,
+      "fixed_read_layout_oracle_mismatches": 0,
+      "fixed_read_layout_orders_replayed": 5952,
+      "fixed_read_safe_layouts_checked": 38,
+      "interpretation": "The shared fixed-read target needs a set-valued cover. Within event/order/final-read-preserving storage recoloring, one cell cannot pass the single-restorer rule and a two-cell quarantine is optimal. Direct final-value forwarding matches one cell and all orders by changing the read interface; packet splitting changes the atom contract.",
+      "max_events": 390,
+      "mismatches": 0,
+      "numeric_target_executions": 122783,
+      "one_cell_single_rescuer_acceptances": 0,
+      "packet_events_indispensable_in_shared_interface": 647,
+      "proved_fixed_read_min_single_rescuer_cells": 2,
+      "restore_events_indispensable_in_shared_interface": 647,
+      "single_rescuer_forwarded_acceptances": 16,
+      "single_rescuer_injective_private_acceptances": 16,
+      "single_rescuer_quarantine_acceptances": 16,
+      "single_rescuer_repaired_acceptances": 16,
+      "single_rescuer_shared_acceptances": 0,
+      "single_rescuer_split_acceptances": 16,
+      "source_formula_checks": 48,
+      "two_cell_single_rescuer_acceptances": 28,
+      "unsafe_negative_controls": 647
+    },
+    "provenance": [
+      {
+        "events": 2,
+        "linear_extensions": 3,
+        "mismatches": 0,
+        "posets": 2,
+        "production_predicate_calls": 24,
+        "tagged_read_cases": 24,
+        "unsafe_cases_with_replayed_countertrace": 14
+      },
+      {
+        "events": 3,
+        "linear_extensions": 20,
+        "mismatches": 0,
+        "posets": 7,
+        "production_predicate_calls": 378,
+        "tagged_read_cases": 378,
+        "unsafe_cases_with_replayed_countertrace": 251
+      },
+      {
+        "events": 4,
+        "linear_extensions": 260,
+        "mismatches": 0,
+        "posets": 40,
+        "production_predicate_calls": 8640,
+        "tagged_read_cases": 8640,
+        "unsafe_cases_with_replayed_countertrace": 6344
+      },
+      {
+        "events": 5,
+        "linear_extensions": 6105,
+        "mismatches": 0,
+        "posets": 357,
+        "production_predicate_calls": 289170,
+        "tagged_read_cases": 289170,
+        "unsafe_cases_with_replayed_countertrace": 229090
+      }
+    ],
+    "robustness": {
+      "black_box_cli": {
+        "accepted_cases": 1,
+        "cleanly_rejected_cases": 3,
+        "tracebacks": 0
+      },
+      "heldout_provenance": {
+        "cases": 1152,
+        "event_count": 6,
+        "graphs": 96,
+        "linear_extension_replays": 11542,
+        "mismatches": 0,
+        "role": "frozen post-formulation implementation holdout; not workload breadth",
+        "seed": 8675309
+      },
+      "metamorphic": {
+        "checks": 4,
+        "mismatches": 0
+      },
+      "mutation_sensitivity": {
+        "detected_by_negative_control": 1,
+        "mutants": 1
+      }
+    },
+    "stores": {
+      "exhaustive": [
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 2,
+          "mixed_cases": 8,
+          "posets": 2,
+          "safe_cases": 6,
+          "single_rejections": 0
+        },
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 3,
+          "mixed_cases": 126,
+          "posets": 7,
+          "safe_cases": 70,
+          "single_rejections": 0
+        },
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 4,
+          "mixed_cases": 2560,
+          "posets": 40,
+          "safe_cases": 984,
+          "single_rejections": 0
+        },
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 5,
+          "mixed_cases": 74970,
+          "posets": 357,
+          "safe_cases": 19035,
+          "single_rejections": 6
+        }
+      ],
+      "joint_erasure_counterexample": {
+        "delete_both_observed_values": [
+          0
+        ],
+        "delete_first_observed_values": [
+          1
+        ],
+        "delete_second_observed_values": [
+          1
+        ],
+        "events": [
+          "write-1-a",
+          "write-1-b",
+          "read-1"
+        ],
+        "interpretation": "Each write is individually erasable, but the pair is not jointly erasable.",
+        "linear_extensions": 2,
+        "original_observed_values": [
+          1
+        ]
+      },
+      "six_event_caution": {
+        "all_writes_potentially_observable": true,
+        "interpretation": "Two writes repeat the initial tag. Removing both preserves both reads; mere potential observability is not enough to exclude redundant stores.",
+        "labels": [
+          0,
+          0,
+          -1,
+          1,
+          1,
+          -1
+        ],
+        "linear_extensions": 16,
+        "pred": [
+          0,
+          0,
+          0,
+          5,
+          6,
+          31
+        ],
+        "read_last_writers": {
+          "2": [
+            -1,
+            0,
+            1
+          ],
+          "5": [
+            3,
+            4
+          ]
+        },
+        "single_rescuer_accepts_final_read": false
+      }
+    },
+    "tests": {
+      "errors": 0,
+      "failures": 0,
+      "successful": true,
+      "tests": 29
+    }
+  },
+  "suite": "all",
+  "timing": {
+    "cover": {
+      "cpu_seconds": 0.12790265399999967,
+      "wall_seconds": 0.12636322100001962
+    },
+    "kernels": {
+      "cpu_seconds": 2.388451216,
+      "wall_seconds": 2.3915546640000116
+    },
+    "memory": {
+      "cpu_seconds": 1.4422364140000004,
+      "wall_seconds": 1.4472984759999576
+    },
+    "packets": {
+      "cpu_seconds": 6.9201553449999995,
+      "wall_seconds": 6.930708845999959
+    },
+    "provenance": {
+      "cpu_seconds": 1.7660406060000002,
+      "wall_seconds": 1.7686494179999954
+    },
+    "robustness": {
+      "cpu_seconds": 0.023516022999999997,
+      "wall_seconds": 2.4293831859999955
+    },
+    "stores": {
+      "cpu_seconds": 0.4634027999999999,
+      "wall_seconds": 0.46417139599998336
+    },
+    "tests": {
+      "cpu_seconds": 0.09505090499999991,
+      "wall_seconds": 0.09838674999997465
+    }
+  },
+  "wall_seconds": 15.658398881999972,
+  "workers": 1
+}

@@ -1,0 +1,31 @@
+{
+  "all_suite_mismatches": 0,
+  "commands": [
+    "python run.py --suite all --out <external-dir>",
+    "python compare.py results <external-dir>",
+    "python -m refcert check results/case-packet-fan-4.json",
+    "python tables.py --results results --out <external-dir>",
+    "python reference_audit.py"
+  ],
+  "deterministic_compare": "MATCH: deterministic summaries, all supplied cases, and all CSV result columns except timing.",
+  "interpretation": "Local standalone self-reproduction, not independent third-party reproduction.",
+  "inventory_audit_status": "PASS",
+  "representative_case": {
+    "accepted": true,
+    "events": 14,
+    "exact_peak_cells": 11,
+    "packet_effects": 8,
+    "packet_events": 4,
+    "read_obligations": 27,
+    "upper_cells": 11
+  },
+  "resource_observation": {
+    "cpu_seconds": 14.093723183,
+    "peak_rss_kib": 129712,
+    "wall_seconds": 16.814076818000103
+  },
+  "scholarly_references": 73,
+  "scope": "Clean standalone tree before archive creation; no manuscript, network, third-party Python package, solver, GPU, or model API required.",
+  "status": "PASS",
+  "unit_tests": 29
+}

@@ -1,0 +1,36 @@
+{
+  "calibration_cohorts": {
+    "TACO-full-paper": 12,
+    "adjacent-full-paper": 5,
+    "contextual-reference": 49,
+    "influential-full-paper": 5,
+    "latest-close": 2
+  },
+  "errors": [],
+  "interpretation": "Metadata/identifier checks and documented reading levels are audited. This is not an automated proof that every cited scientific claim is correct; claim wording remains limited to the recorded access scope.",
+  "relevance_buckets": {
+    "combinatorial-optimization": 1,
+    "compiler-correctness-and-verification": 10,
+    "memory-scheduling-and-allocation": 11,
+    "partial-order-and-value-equivalence": 4,
+    "polyhedral-scheduling-and-infrastructure": 19,
+    "schedule-languages-and-tensor-compilers": 15,
+    "tensor-representations-and-sparse-compilation": 13
+  },
+  "requirements": {
+    "TACO-full-paper": 12,
+    "adjacent-full-paper": 5,
+    "influential-full-paper": 5,
+    "latest-close": 2
+  },
+  "scholarly_references": 73,
+  "status": "PASS",
+  "total_citation_occurrences": 85,
+  "unique_bibliography_keys": 73,
+  "unique_cited_keys": 73,
+  "verification_levels": {
+    "full-paper-structural-calibration": 17,
+    "metadata-and-relevance-checked": 41,
+    "substantive-text-checked": 15
+  }
+}

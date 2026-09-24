@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "2": {
+      "posets": 2,
+      "mixed_event_cases": 8,
+      "universally_value_safe_cases": 6,
+      "single_rescuer_rejections_before_dead_stores": 0,
+      "single_rescuer_rejections_after_dead_stores": 0
+    },
+    "3": {
+      "posets": 7,
+      "mixed_event_cases": 126,
+      "universally_value_safe_cases": 70,
+      "single_rescuer_rejections_before_dead_stores": 0,
+      "single_rescuer_rejections_after_dead_stores": 0
+    },
+    "4": {
+      "posets": 40,
+      "mixed_event_cases": 2560,
+      "universally_value_safe_cases": 984,
+      "single_rescuer_rejections_before_dead_stores": 0,
+      "single_rescuer_rejections_after_dead_stores": 0
+    },
+    "5": {
+      "posets": 357,
+      "mixed_event_cases": 74970,
+      "universally_value_safe_cases": 19035,
+      "single_rescuer_rejections_before_dead_stores": 6,
+      "single_rescuer_rejections_after_dead_stores": 0
+    }
+  },
+  "counterexample": [],
+  "cpu_seconds": 0.715791255,
+  "wall_seconds": 0.718504122000013,
+  "peak_rss_kib": 92584,
+  "interpretation": "Exact oracle dead-store removal is a diagnostic, not an efficient baseline or a general theorem."
+}

@@ -1,0 +1,589 @@
+{
+  "entries": [
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "halide12",
+      "evidence_url": "https://doi.org/10.1145/2185520.2185528",
+      "identifier": "10.1145/2185520.2185528",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "halide13",
+      "evidence_url": "https://doi.org/10.1145/2491956.2462176",
+      "identifier": "10.1145/2491956.2462176",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "halide18",
+      "evidence_url": "https://doi.org/10.1145/3150211",
+      "identifier": "10.1145/3150211",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "halidesched16",
+      "evidence_url": "https://doi.org/10.1145/2897824.2925952",
+      "identifier": "10.1145/2897824.2925952",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "halidelearn19",
+      "evidence_url": "https://doi.org/10.1145/3306346.3322967",
+      "identifier": "10.1145/3306346.3322967",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "polymage15",
+      "evidence_url": "https://doi.org/10.1145/2694344.2694364",
+      "identifier": "10.1145/2694344.2694364",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "tiramisu19",
+      "evidence_url": "https://doi.org/10.1109/CGO.2019.8661197",
+      "identifier": "10.1109/CGO.2019.8661197",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "tvm18",
+      "evidence_url": "https://www.usenix.org/conference/osdi18/presentation/chen",
+      "identifier": "https://www.usenix.org/conference/osdi18/presentation/chen",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "ansor20",
+      "evidence_url": "https://www.usenix.org/conference/osdi20/presentation/zheng",
+      "identifier": "https://www.usenix.org/conference/osdi20/presentation/zheng",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "tensorir23",
+      "evidence_url": "https://doi.org/10.1145/3575693.3576933",
+      "identifier": "10.1145/3575693.3576933",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "exo22",
+      "evidence_url": "https://doi.org/10.1145/3519939.3523446",
+      "identifier": "10.1145/3519939.3523446",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "exo225",
+      "evidence_url": "https://doi.org/10.1145/3669940.3707218",
+      "identifier": "10.1145/3669940.3707218",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "atl22",
+      "evidence_url": "https://doi.org/10.1145/3498717",
+      "identifier": "10.1145/3498717",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "atl24",
+      "evidence_url": "https://doi.org/10.1145/3656390",
+      "identifier": "10.1145/3656390",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "halidetv22",
+      "evidence_url": "https://doi.org/10.1145/3527328",
+      "identifier": "10.1145/3527328",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "haliver24",
+      "evidence_url": "https://doi.org/10.1007/978-3-031-57256-2_4",
+      "identifier": "10.1007/978-3-031-57256-2_4",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "taco17",
+      "evidence_url": "https://doi.org/10.1145/3133901",
+      "identifier": "10.1145/3133901",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "format18",
+      "evidence_url": "https://doi.org/10.1145/3276493",
+      "identifier": "10.1145/3276493",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "looplets23",
+      "evidence_url": "https://doi.org/10.1145/3579990.3580020",
+      "identifier": "10.1145/3579990.3580020",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "sparsemlir22",
+      "evidence_url": "https://doi.org/10.1145/3544559",
+      "identifier": "10.1145/3544559",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "sparsetir23",
+      "evidence_url": "https://doi.org/10.1145/3582016.3582047",
+      "identifier": "10.1145/3582016.3582047",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "sam23",
+      "evidence_url": "https://doi.org/10.1145/3582016.3582051",
+      "identifier": "10.1145/3582016.3582051",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "unified23",
+      "evidence_url": "https://doi.org/10.1145/3572908",
+      "identifier": "10.1145/3572908",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "next700",
+      "evidence_url": "https://doi.org/10.1145/3355606",
+      "identifier": "10.1145/3355606",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "generalized18",
+      "evidence_url": "https://doi.org/10.1145/3235029",
+      "identifier": "10.1145/3235029",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "sparsepoly23",
+      "evidence_url": "https://doi.org/10.1145/3566054",
+      "identifier": "10.1145/3566054",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "const24",
+      "evidence_url": "https://doi.org/10.1145/3689342",
+      "identifier": "10.1145/3689342",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "xengine23",
+      "evidence_url": "https://doi.org/10.1145/3568956",
+      "identifier": "10.1145/3568956",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "autovesk24",
+      "evidence_url": "https://doi.org/10.1145/3631709",
+      "identifier": "10.1145/3631709",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "nonlinear16",
+      "evidence_url": "https://doi.org/10.1145/2838734",
+      "identifier": "10.1145/2838734",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "iterative17",
+      "evidence_url": "https://doi.org/10.1145/3109482",
+      "identifier": "10.1145/3109482",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "surrogate19",
+      "evidence_url": "https://doi.org/10.1145/3291773",
+      "identifier": "10.1145/3291773",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "exastencils19",
+      "evidence_url": "https://doi.org/10.1145/3274653",
+      "identifier": "10.1145/3274653",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "autotune19",
+      "evidence_url": "https://doi.org/10.1145/3293449",
+      "identifier": "10.1145/3293449",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "flextiles20",
+      "evidence_url": "https://doi.org/10.1145/3369382",
+      "identifier": "10.1145/3369382",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "instrumented20",
+      "evidence_url": "https://doi.org/10.1145/3363785",
+      "identifier": "10.1145/3363785",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "polsurvey24",
+      "evidence_url": "https://doi.org/10.1145/3674735",
+      "identifier": "10.1145/3674735",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "pluto08",
+      "evidence_url": "https://doi.org/10.1145/1375581.1375595",
+      "identifier": "10.1145/1375581.1375595",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "feautrier92a",
+      "evidence_url": "https://doi.org/10.1007/BF01407835",
+      "identifier": "10.1007/BF01407835",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "feautrier92b",
+      "evidence_url": "https://doi.org/10.1007/BF01379404",
+      "identifier": "10.1007/BF01379404",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "isl10",
+      "evidence_url": "https://doi.org/10.1007/978-3-642-15582-6_49",
+      "identifier": "10.1007/978-3-642-15582-6_49",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "ppcg13",
+      "evidence_url": "https://doi.org/10.1007/978-3-642-37051-9_6",
+      "identifier": "10.1007/978-3-642-37051-9_6",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "polly11",
+      "evidence_url": "https://doi.org/10.1142/S0129626412500107",
+      "identifier": "10.1142/S0129626412500107",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "chill08",
+      "evidence_url": "https://doi.org/10.1109/SC.2008.5213920",
+      "identifier": "10.1109/SC.2008.5213920",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "mlir21",
+      "evidence_url": "https://doi.org/10.1109/CGO51591.2021.9370308",
+      "identifier": "10.1109/CGO51591.2021.9370308",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "lift17",
+      "evidence_url": "https://doi.org/10.1109/CGO.2017.7863730",
+      "identifier": "10.1109/CGO.2017.7863730",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "dace19",
+      "evidence_url": "https://doi.org/10.1145/3295500.3356173",
+      "identifier": "10.1145/3295500.3356173",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "distal22",
+      "evidence_url": "https://doi.org/10.1145/3527335",
+      "identifier": "10.1145/3527335",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "translation98",
+      "evidence_url": "https://doi.org/10.1007/BFb0054170",
+      "identifier": "10.1007/BFb0054170",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "pcc97",
+      "evidence_url": "https://doi.org/10.1145/263699.263712",
+      "identifier": "10.1145/263699.263712",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "compcert09",
+      "evidence_url": "https://doi.org/10.1145/1538788.1538814",
+      "identifier": "10.1145/1538788.1538814",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "alive15",
+      "evidence_url": "https://doi.org/10.1145/2737924.2737965",
+      "identifier": "10.1145/2737924.2737965",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "alive221",
+      "evidence_url": "https://doi.org/10.1145/3453483.3454030",
+      "identifier": "10.1145/3453483.3454030",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "dpor05",
+      "evidence_url": "https://doi.org/10.1145/1040305.1040315",
+      "identifier": "10.1145/1040305.1040315",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "sourcedpor14",
+      "evidence_url": "https://doi.org/10.1145/2535838.2535845",
+      "identifier": "10.1145/2535838.2535845",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "optimaldpor17",
+      "evidence_url": "https://doi.org/10.1007/s00236-016-0275-0",
+      "identifier": "10.1007/s00236-016-0275-0",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "value19",
+      "evidence_url": "https://doi.org/10.1145/3360550",
+      "identifier": "10.1145/3360550",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "picard76",
+      "evidence_url": "https://doi.org/10.1287/mnsc.22.11.1268",
+      "identifier": "10.1287/mnsc.22.11.1268",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "hongkung81",
+      "evidence_url": "https://doi.org/10.1145/800076.802486",
+      "identifier": "10.1145/800076.802486",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "sethi75",
+      "evidence_url": "https://doi.org/10.1137/0204020",
+      "identifier": "10.1137/0204020",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "chaitin81",
+      "evidence_url": "https://doi.org/10.1016/0096-0551(81)90048-5",
+      "identifier": "10.1016/0096-0551(81)90048-5",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "chen16",
+      "evidence_url": "https://arxiv.org/abs/1604.06174",
+      "identifier": "https://arxiv.org/abs/1604.06174",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "checkmate20",
+      "evidence_url": "https://proceedings.mlsys.org/paper_files/paper/2020/hash/0b816ae8f06f8dd3543dc3d9ef196cab-Abstract.html",
+      "identifier": "https://proceedings.mlsys.org/paper_files/paper/2020/hash/0b816ae8f06f8dd3543dc3d9ef196cab-Abstract.html",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "dtr20",
+      "evidence_url": "https://openreview.net/forum?id=Vfs_2RnOD0H",
+      "identifier": "https://openreview.net/forum?id=Vfs_2RnOD0H",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "capuchin20",
+      "evidence_url": "https://doi.org/10.1145/3373376.3378505",
+      "identifier": "10.1145/3373376.3378505",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "fradet23",
+      "evidence_url": "https://doi.org/10.1145/3589610.3596280",
+      "identifier": "10.1145/3589610.3596280",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "scratchpad09",
+      "evidence_url": "https://doi.org/10.1145/951710.951747",
+      "identifier": "10.1145/951710.951747",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "scratchshare17",
+      "evidence_url": "https://doi.org/10.1145/2540708.2540717",
+      "identifier": "10.1145/2540708.2540717",
+      "metadata_status": "verified",
+      "verification_level": "metadata-and-relevance-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "schedchron25",
+      "evidence_url": "https://doi.org/10.1145/3743135",
+      "identifier": "10.1145/3743135",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "hardboiled26",
+      "evidence_url": "https://doi.org/10.1109/CGO68049.2026.11395214",
+      "identifier": "10.1109/CGO68049.2026.11395214",
+      "metadata_status": "verified",
+      "verification_level": "full-paper-structural-calibration"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "prism26",
+      "evidence_url": "https://doi.org/10.1145/3808290",
+      "identifier": "10.1145/3808290",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "atl26",
+      "evidence_url": "https://doi.org/10.1145/3808261",
+      "identifier": "10.1145/3808261",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    },
+    {
+      "access_date": "2026-09-21",
+      "citation_key": "karp72",
+      "evidence_url": "https://doi.org/10.1007/978-1-4684-2001-2_9",
+      "identifier": "10.1007/978-1-4684-2001-2_9",
+      "metadata_status": "verified",
+      "verification_level": "substantive-text-checked"
+    }
+  ],
+  "scope": "Stable identifier and official/scholarly source inventory frozen from reference_inventory.csv and external_resources.csv. No live network is required for artifact reproduction."
+}
