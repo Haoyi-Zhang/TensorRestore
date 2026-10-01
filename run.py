@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Reproduce finite evidence in a single bounded process.
+"""Reproduce finite evidence with one experiment worker.
 
 Usage: python run.py --suite all --out reproduced
        python run.py --suite kernels --out reproduced
-Each suite may be run separately. Results contain no release/hash manifests.
+Suites run serially in the main worker.  The robustness suite launches only
+serial public-CLI subprocesses. Results contain no release/hash manifests.
 """
-import argparse, copy, csv, json, os, random, resource, sys, time, unittest
+import argparse, copy, csv, json, os, platform, random, resource, sys, time, unittest
 from itertools import product
 from pathlib import Path
 from refcert.checker import structure, verify
@@ -25,6 +26,10 @@ from refcert.robustness import robustness_audit
 ROOT=Path(__file__).resolve().parent
 
 def dump(path,value):path.write_text(json.dumps(value,indent=2,sort_keys=True)+'\n',encoding='utf-8')
+
+def completed_child_cpu_seconds():
+    usage=resource.getrusage(resource.RUSAGE_CHILDREN)
+    return usage.ru_utime+usage.ru_stime
 
 def linearization(p,seed):
     rng=random.Random(seed); n=len(p['events']); succ=[set() for _ in range(n)];degree=[0]*n
@@ -104,6 +109,7 @@ def kernels(out):
 def packets(out):
     """Discriminating effect-coupled family, counter-baselines, and layout oracle."""
     rows=[];numeric_executions=0;exact_orders_checked=0;repaired_orders_checked=0
+    split_order_sets_checked=0;split_order_replays=0;split_order_mismatches=0
     source_formula_checks=0;negative_controls=0;max_events=0
     layout_assignments_checked=0;layout_safe=0;layout_orders_replayed=0;layout_oracle_mismatches=0
     layout_single_acceptances={1:0,2:0}
@@ -189,6 +195,24 @@ def packets(out):
         verify(split,split_certificate,split_budget)
         if not single_rescuer_accepts(split) or split_budget!=budget:
             raise AssertionError('split baseline')
+        if (len(split['events'])!=len(shared['events']) or split['edges']!=shared['edges']
+                or split['restores']!=shared['restores']):
+            raise AssertionError('split changed event/order/restore interface')
+        if structure(split)['pred']!=structure(shared)['pred']:
+            raise AssertionError('split changed reachability relation')
+        if any(split['events'][event_id].get('kind')=='packet'
+               for event_id in split['former_packet_events']):
+            raise AssertionError('split retained a packet atom')
+        if branches in (2,3):
+            split_traces=orders(structure(split)['pred'])
+            split_order_sets_checked+=1;split_order_replays+=len(split_traces)
+            if split_traces!=traces:
+                split_order_mismatches+=1
+                raise AssertionError('split order set differs from shared target')
+            for trace in split_traces:
+                actual,peak=execute(split,vectors[-1],trace);numeric_executions+=1
+                if actual!=expected[-1] or peak!=split_budget:
+                    raise AssertionError('split exact-order execution')
 
         # Exhaustive small storage-recoloring oracle: all assignments of packet
         # clobbers and restores to one or two cells, with the final read fixed at cell 0.
@@ -281,7 +305,9 @@ def packets(out):
              'scratch_cells_saved_vs_injective_private':branches,
              'shared_peak_cells':budget,'quarantine_peak_cells':quarantine_budget,
              'injective_private_peak_cells':private_budget,'forwarded_peak_cells':forwarded_budget,
-             'split_peak_cells':split_budget,
+             'split_peak_cells':split_budget,'split_events':len(split['events']),
+             'split_restores_retained':len(split['restores']),
+             'split_order_relation_preserved':int(structure(split)['pred']==structure(shared)['pred']),
              'max_restorers_for_one_read':max(map(len,certificate['rescue'])),
              'single_rescuer_shared':int(single_rescuer_accepts(shared)),
              'single_rescuer_repaired':int(single_rescuer_accepts(repaired)),
@@ -337,9 +363,13 @@ def packets(out):
              'single_rescuer_injective_private_acceptances':sum(r['single_rescuer_injective_private'] for r in rows),
              'single_rescuer_forwarded_acceptances':sum(r['single_rescuer_forwarded'] for r in rows),
              'single_rescuer_split_acceptances':sum(r['single_rescuer_split'] for r in rows),
+             'split_configurations_with_identical_event_order_relation':sum(r['split_order_relation_preserved'] for r in rows),
+             'split_small_order_sets_checked':split_order_sets_checked,
+             'split_exact_orders_replayed':split_order_replays,
+             'split_order_mismatches':split_order_mismatches,
              'packet_events_indispensable_in_shared_interface':sum(r['unique_essential_packet_outputs_shared_interface'] for r in rows),
              'restore_events_indispensable_in_shared_interface':negative_controls,
-             'interpretation':'The shared fixed-read target needs a set-valued cover. Within event/order/final-read-preserving storage recoloring, one cell cannot pass the single-restorer rule and a two-cell quarantine is optimal. Direct final-value forwarding matches one cell and all orders by changing the read interface; packet splitting changes the atom contract.'}
+             'interpretation':'The shared fixed-read target needs a set-valued cover. Within event/order/final-read-preserving storage recoloring, one cell cannot pass the single-restorer rule and a two-cell quarantine is optimal. Direct final-value forwarding matches one cell and all orders by changing the read interface. The split baseline removes only packet scratch subeffects while retaining every event identifier, restore, and edge, so it has the identical order relation but changes the atom contract.'}
     dump(out/'packets-summary.json',summary);return summary
 
 def run_tests(out):
@@ -356,23 +386,67 @@ def main():
     parser.add_argument('--suite',choices=('all','tests','provenance','memory','cover','stores','robustness','kernels','packets'),default='all')
     parser.add_argument('--out',type=Path,default=Path('reproduced'))
     args=parser.parse_args();out=args.out.resolve();out.mkdir(parents=True,exist_ok=True)
-    # Three GiB virtual address space leaves headroom under the project's 4 GiB ceiling.
-    if hasattr(resource,'RLIMIT_AS'):resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,3*1024**3))
+    # POSIX per-process guards. Serial CLI subprocesses inherit these limits; RLIMIT_CPU
+    # is not an aggregate process-tree budget.
+    address_limit=3*1024**3
+    if hasattr(resource,'RLIMIT_AS'):resource.setrlimit(resource.RLIMIT_AS,(address_limit,address_limit))
     resource.setrlimit(resource.RLIMIT_CPU,(240,240))
-    if hasattr(os,'sched_getaffinity'):os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
-    start=time.perf_counter();cpu=time.process_time();suite_data={};timing={}
+    affinity_applied=False
+    if hasattr(os,'sched_getaffinity'):
+        os.sched_setaffinity(0,{min(os.sched_getaffinity(0))});affinity_applied=True
+    start=time.perf_counter();worker_cpu=time.process_time();child_cpu=completed_child_cpu_seconds()
+    suite_data={};timing={}
     tasks={'tests':run_tests,'provenance':lambda o:provenance_oracle(),'memory':lambda o:memory_oracle(),
            'cover':lambda o:restoration_set_cover_oracle(),
            'stores':lambda o:diagnostic_dead_stores(),
            'robustness':lambda o:robustness_audit(),'kernels':kernels,'packets':packets}
     for name,fn in tasks.items():
         if args.suite not in ('all',name):continue
-        t=time.perf_counter();c=time.process_time();suite_data[name]=fn(out)
-        timing[name]={'wall_seconds':time.perf_counter()-t,'cpu_seconds':time.process_time()-c}
+        t=time.perf_counter();c=time.process_time();cc=completed_child_cpu_seconds()
+        suite_data[name]=fn(out)
+        timing[name]={'wall_seconds':time.perf_counter()-t,
+                      'worker_cpu_seconds':time.process_time()-c,
+                      'completed_cli_child_cpu_seconds':completed_child_cpu_seconds()-cc}
         dump(out/f'{name}-summary.json',suite_data[name]);print(name,'completed',flush=True)
-    report={'suite':args.suite,'workers':1,'address_space_limit_bytes':3*1024**3,'cpu_limit_seconds':240,
-            'wall_seconds':time.perf_counter()-start,'cpu_seconds':time.process_time()-cpu,
-            'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'timing':timing,'results':suite_data}
+    worker_used=time.process_time()-worker_cpu
+    child_used=completed_child_cpu_seconds()-child_cpu
+    system=platform.system()
+    rss_unit='KiB' if system=='Linux' else ('bytes' if system=='Darwin' else 'platform-defined')
+    report={
+        'suite':args.suite,
+        'execution_model':{
+            'experiment_workers':1,
+            'suite_scheduling':'serial in the main worker',
+            'cli_subprocesses':'serial only (public-CLI robustness checks)',
+        },
+        'resource_limits':{
+            'virtual_address_limit_bytes_per_process':address_limit if hasattr(resource,'RLIMIT_AS') else None,
+            'cpu_limit_seconds_per_process':240,
+            'single_cpu_affinity_applied':affinity_applied,
+            'scope':('POSIX per-process limits on the worker, inherited by spawned CLI children; '
+                     'the CPU limit is not an aggregate process-tree limit.'),
+        },
+        'wall_seconds':time.perf_counter()-start,
+        'worker_cpu_seconds':worker_used,
+        'completed_cli_child_cpu_seconds':child_used,
+        'accounted_cpu_seconds':worker_used+child_used,
+        'main_process_peak_rss':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+        'main_process_peak_rss_unit':rss_unit,
+        'measurement_scope':(
+            'process_time and RUSAGE_SELF describe only the main experiment worker. '
+            'Completed serial child CPU is added from RUSAGE_CHILDREN. Child RSS is '
+            'not reported or summed; the main-process peak is not a process-tree peak.'),
+        'reference_environment':{
+            'os':system,
+            'os_release':platform.release(),
+            'python_implementation':sys.implementation.name,
+            'python_version':platform.python_version(),
+            'resource_module_assumption':'POSIX resource semantics; Windows requires adaptation.',
+            'legacy_environment_for_preceding_frozen_runs':'unknown/not recoverable',
+        },
+        'timing':timing,
+        'results':suite_data,
+    }
     dump(out/'run-summary.json',report)
     print(json.dumps({k:v for k,v in report.items() if k not in ('results','timing')},indent=2))
 if __name__=='__main__':main()

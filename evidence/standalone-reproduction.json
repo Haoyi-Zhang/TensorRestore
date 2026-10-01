@@ -7,7 +7,7 @@
     "python tables.py --results results --out <external-dir>",
     "python reference_audit.py"
   ],
-  "deterministic_compare": "MATCH: deterministic summaries, all supplied cases, and all CSV result columns except timing.",
+  "deterministic_compare": "MATCH: eight deterministic scientific summaries, all supplied cases, and all CSV result columns except timing.",
   "interpretation": "Local standalone self-reproduction, not independent third-party reproduction.",
   "inventory_audit_status": "PASS",
   "representative_case": {
@@ -20,12 +20,35 @@
     "upper_cells": 11
   },
   "resource_observation": {
-    "cpu_seconds": 14.093723183,
-    "peak_rss_kib": 129712,
-    "wall_seconds": 16.814076818000103
+    "accounted_cpu_seconds": 27.364474157,
+    "completed_cli_child_cpu_seconds": 5.1472739999999995,
+    "execution_model": {
+      "cli_subprocesses": "serial only (public-CLI robustness checks)",
+      "experiment_workers": 1,
+      "suite_scheduling": "serial in the main worker"
+    },
+    "main_process_peak_rss": 131244,
+    "main_process_peak_rss_unit": "KiB",
+    "measurement_scope": "process_time and RUSAGE_SELF describe only the main experiment worker. Completed serial child CPU is added from RUSAGE_CHILDREN. Child RSS is not reported or summed; the main-process peak is not a process-tree peak.",
+    "reference_environment": {
+      "legacy_environment_for_preceding_frozen_runs": "unknown/not recoverable",
+      "os": "Linux",
+      "os_release": "6.18.44",
+      "python_implementation": "cpython",
+      "python_version": "3.13.5",
+      "resource_module_assumption": "POSIX resource semantics; Windows requires adaptation."
+    },
+    "resource_limits": {
+      "cpu_limit_seconds_per_process": 240,
+      "scope": "POSIX per-process limits on the worker, inherited by spawned CLI children; the CPU limit is not an aggregate process-tree limit.",
+      "single_cpu_affinity_applied": true,
+      "virtual_address_limit_bytes_per_process": 3221225472
+    },
+    "wall_seconds": 27.376174720999984,
+    "worker_cpu_seconds": 22.217200157
   },
   "scholarly_references": 73,
-  "scope": "Clean standalone tree before archive creation; no manuscript, network, third-party Python package, solver, GPU, or model API required.",
+  "scope": "Clean standalone artifact tree before archive creation; no manuscript, network, third-party Python package, solver, GPU, or model API was required.",
   "status": "PASS",
-  "unit_tests": 29
+  "unit_tests": 36
 }

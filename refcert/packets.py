@@ -179,48 +179,30 @@ def compile_private_fan(source):
 
 
 def compile_split_fan(source):
-    """Stronger out-of-contract baseline that splits away every packet clobber."""
-    branches = source['branches']
-    buffers = [
-        {'persistent': True, 'cells': source['inputs']},
-        {'persistent': True, 'cells': len(source['outputs'])},
-        {'persistent': False, 'cells': 1},
-    ]
-    events = [{'kind': 'entry'}]
-    edges = []
+    """Out-of-contract baseline that removes only each packet scratch subeffect.
 
-    def emit(event):
-        events.append(event)
-        return len(events) - 1
-
-    allocation = emit({'kind': 'alloc', 'buffer': 2})
-    initialize = emit({'kind': 'copy', 'value': 0, 'src': [0, 0], 'dst': [2, 0]})
-    edges.extend([[0, allocation], [allocation, initialize]])
-    computations = []
-    for i, value in enumerate(source['outputs'][:-1]):
-        event = emit({
-            'kind': 'eval',
-            'value': value,
-            'op': 'xor',
-            'args': [[0, 0], [0, i + 1]],
-            'dst': [1, i],
-        })
-        computations.append(event)
-        edges.append([initialize, event])
-    final = emit({'kind': 'copy', 'value': 0, 'src': [2, 0], 'dst': [1, branches]})
-    freed = emit({'kind': 'free', 'buffer': 2})
-    exit_event = emit({'kind': 'exit'})
-    for event in computations:
-        edges.append([event, final])
-    edges.extend([[final, freed], [freed, exit_event]])
-    return {
-        'source': source,
-        'buffers': buffers,
-        'events': events,
-        'edges': edges,
-        'schedule': 'split-effects-fan',
-        'anchor_location': [2, 0],
-    }
+    The constructor starts from the shared target and keeps every event identifier,
+    restore event, and precedence edge.  At each former packet site it retains the
+    unique output effect as a scalar event and removes only the scratch-clobber
+    subeffect.  Consequently the event DAG and its linear extensions are literally
+    identical to the shared target; the comparison changes only the packet/effect
+    contract, not the order space.  The redundant restores are intentionally kept so
+    that ``all orders`` is not a projection claim.
+    """
+    split = compile_restoring_fan(source)
+    former_packets = list(split['packets'])
+    for event_id in former_packets:
+        packet = split['events'][event_id]
+        output_effects = [effect for effect in packet['effects']
+                          if effect.get('dst', [None])[0] == 1]
+        if len(output_effects) != 1:
+            raise ValueError('expected one packet output effect')
+        split['events'][event_id] = copy.deepcopy(output_effects[0])
+    split['schedule'] = 'split-scratch-subeffects-fan'
+    split['former_packet_events'] = former_packets
+    split['split_removed_scratch_effects'] = len(former_packets)
+    split['split_preserves_event_ids_edges_and_restores'] = True
+    return split
 
 
 def edge_repair(program, chosen_branch=0):

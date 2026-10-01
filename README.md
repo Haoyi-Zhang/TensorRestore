@@ -8,7 +8,7 @@ For a fixed finite sequential event DAG with exact source tags, read-before-writ
 
 A supplied restoration witness is polynomial-time checkable. Finding a smallest witness is NP-complete by a Set Cover reduction. The reference producer therefore uses a deterministic heuristic and the checker validates whatever witness it receives.
 
-The packet comparison is conditional. In the **fixed-final-read, atom-preserving storage-recoloring class**—same source, events, edges, packets, effect computations, non-scratch destinations, and final scratch read—the shared target uses one cell, whereas every all-order single-restorer target needs at least two. A two-cell quarantine reaches the lower bound. Value forwarding and effect splitting escape by changing, respectively, the final-read interface and packet contract.
+The packet comparison is conditional. In the **fixed-final-read, atom-preserving storage-recoloring class**—same source, events, edges, packets, effect computations, non-scratch destinations, and final scratch read—the shared target uses one cell, whereas every all-order single-restorer target needs at least two. A two-cell quarantine reaches the lower bound. Value forwarding changes the final-read interface. Effect splitting keeps every event identifier, restore, and edge but removes each packet's scratch subeffect, so it preserves the literal event order while changing the packet contract.
 
 ## Reproduce
 
@@ -30,7 +30,7 @@ cd ../paper
 python build.py
 ```
 
-`run.py` uses only the Python standard library, one process, a 3 GiB virtual-address guard, and a 240-second CPU guard. Timing and RSS are excluded from deterministic comparison.
+`run.py` uses one experiment worker; suites and public-CLI subprocesses are serial. On POSIX, the 3 GiB virtual-address and 240-second CPU guards apply per process and are inherited by children; the CPU guard is not an aggregate tree limit. `process_time` and `RUSAGE_SELF` describe only the worker, while completed-child CPU is recorded from `RUSAGE_CHILDREN`. Child RSS is neither reported nor added to the worker peak. Deterministic comparison excludes timing fields but checks eight scientific summaries, every retained case, and all non-timing CSV fields.
 
 The representative four-branch case must be accepted with 14 events, four packet events, eight packet effects, 27 read obligations, and an exact/certified total peak of 11 abstract cells.
 
@@ -38,19 +38,20 @@ The representative four-branch case must be accepted with 14 events, four packet
 
 | Check | Frozen result |
 |---|---:|
-| Unit tests | 29 passed |
+| Unit tests | 36 passed |
 | Exact tagged-read cases | 298,212; production predicate called on every case; zero mismatch |
 | Unsafe cases with replayed countertrace | 235,699 |
 | Exact maximum-closure cases | 90,198; zero mismatch |
 | Set Cover/restoration systems | 4,612; zero optimum mismatch |
 | Frozen six-event holdout | 1,152 cases; 11,542 extension replays; zero mismatch |
-| Metamorphic / black-box / mutation audits | 4 / 4 / 1; all passed |
+| Metamorphic / black-box / focused mutation audits | 4 / 4 / 1; all passed |
 | Tensor source instances / schedules | 40 / 234 |
 | Tensor target executions | 9,360; zero mismatch |
 | One-restorer tensor acceptances | 234 / 234; retained negative result |
 | Packet configurations | 16, through `k=192` at recorded points |
-| Packet target executions | 122,783; zero mismatch |
+| Packet target executions | 122,879; zero mismatch |
 | Exact unrestricted / repaired orders | 116,016 / 71,225 |
+| Split exact-order replays | 96 for `k=2,3`; identical original event-order sets |
 | Fixed-read recolorings / order replays | 82 / 5,952; zero mismatch |
 | One-cell / two-cell single-restorer acceptances | 0 / 28 |
 | Unsafe packet controls | 647; all rejected and numerically wrong |
@@ -66,10 +67,11 @@ Counts are finite validation evidence, not production-workload breadth. The tens
 - `refcert/producer.py` — untrusted restoration and maximum-closure witness construction; one-restorer baseline.
 - `refcert/interpreter.py` — independent modular-32-bit source/target execution.
 - `refcert/oracles.py` — exact poset, provenance, memory, scalar-cleanup, and Set Cover/restoration comparisons.
-- `refcert/robustness.py` — held-out, metamorphic, black-box CLI, and mutation-sensitivity audits.
+- `refcert/robustness.py` — held-out, metamorphic, black-box CLI, focused coverage-mutation, and packet snapshot-semantics audits.
 - `refcert/kernels.py` — eight bounded tensor families and schedule layouts.
 - `refcert/packets.py` — shared residual fan, quarantine, injective recoloring, edge repair, forwarding, splitting, and exact order formulas.
-- `tests/test_checker.py` — positive, forged, malformed, unsafe, packet, lifetime, source-availability, memory, and reuse tests.
+- `tests/test_checker.py` — positive, forged, malformed, unsafe, packet snapshot, lifetime, source-availability, memory, split-order, and reuse tests.
+- `tests/test_compare.py` — regression tests for all eight summaries, cases, and non-timing CSV comparison.
 - `proofs/theory.md` — self-contained written mathematics; not proof-assistant output.
 - `results/` — frozen summaries, CSVs, and concrete accepted/unsafe cases.
 - `reference_inventory.csv`, `external_resources.csv`, `reference_audit.py` — bibliography inventory, evidence ledger, and closure audit.

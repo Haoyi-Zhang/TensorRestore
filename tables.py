@@ -55,6 +55,7 @@ def main():
       ['Exact unrestricted orders',number(summary['exact_unrestricted_orders_enumerated'])],
       ['Exact repaired orders',number(summary['exact_repaired_orders_enumerated'])],
       ['Numeric target executions',number(summary['numeric_target_executions'])],
+      ['Split exact-order replays',number(summary['split_exact_orders_replayed'])],
       ['Unsafe shared-interface controls',number(summary['unsafe_negative_controls'])],
       ['Necessary packets in shared target',number(summary['packet_events_indispensable_in_shared_interface'])],
       ['Necessary restores in shared target',number(summary['restore_events_indispensable_in_shared_interface'])],

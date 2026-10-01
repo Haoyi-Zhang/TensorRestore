@@ -36,9 +36,9 @@ Frozen result: 4,612 systems, zero optimum mismatch.
 
 ## Scalar cleanup diagnostic
 
-Enumerate mixed read/write assignments for posets through five events. Retain universally safe cases and remove the **joint family** of write effects that are never last before any observed read. Report the six bounded set-valued separations before cleanup and zero after cleanup. Separately replay:
+Enumerate mixed read/write assignments for posets through five events. The declared observation interface contains every protected output/internal read, including the distinguished read; initialization is fixed input/lifetime state and is not deletable. Retain universally safe cases and remove the **joint family** of noninitial write effects that are never last before any observation in that full interface. Report the six bounded set-valued separations before cleanup and zero after cleanup. Separately replay:
 
-- a three-event example where each of two writes is individually erasable but the pair is not jointly erasable; and
+- a three-event example with fixed zero initialization, two unordered writes of one, and protected read `r`: either write is individually erasable relative to `{r}`, but deleting both changes `r` from one to zero; and
 - a six-event caution where potential observability does not imply indispensability.
 
 This is bounded negative evidence, not a universal scalar theorem.
@@ -52,9 +52,10 @@ Also check:
 - edge/certificate ordering, redundant transitive edges, internal event alpha-renaming, and JSON key-order metamorphisms;
 - three malformed public-CLI cases, requiring structured rejection without traceback;
 - one accepted public-CLI case; and
-- a mutant that omits bad-writer coverage, requiring the negative control to expose it.
+- a focused certificate whose supplied restorer is legal but fails to cover one possible wrong last writer: the unchanged checker must reject with `possible wrong last writer`, while a mutant deleting only that coverage test accepts; and
+- a packet cross-read/write case with `a != x`, both effect orders, a local sequential-commit mutant, and an uninitialized same-packet-source rejection.
 
-Frozen result: 1,152 holdout cases, 11,542 extension replays, four metamorphic checks, four CLI checks, one detected mutant, zero mismatch.
+Frozen result: 1,152 holdout cases, 11,542 extension replays, four metamorphic checks, four CLI checks, one focused missing-coverage mutant exposed, two initialized packet effect orders invariant under snapshot commit, one sequential-commit mutant exposed, and both checker and snapshot interpreter rejecting the uninitialized same-packet source.
 
 ## Bounded tensor suite
 
@@ -73,9 +74,9 @@ Use branch counts `2,3,4,5,6,7,8,12,16,24,32,48,64,96,128,192`. For each, compar
 5. one-cell final-value forwarding; and
 6. split effects outside the atom-preserving contract.
 
-Enumerate every unrestricted and repaired middle-region order through `k=5`; use exact formulas plus deterministic representative executions for larger `k`. Exhaust every one/two-cell clobber/restore assignment for `k=2,3` and replay every legal order numerically. Remove each restore-to-final obligation in turn and replay a constructed numeric counterorder.
+Enumerate every unrestricted and repaired middle-region order through `k=5`; use exact formulas plus deterministic representative executions for larger `k`. The split constructor must retain every event identifier, restore, and edge and remove only scratch packet subeffects. For `k=2,3`, compare its complete event-order sets literally with the original 6 and 90 orders and replay all 96. Also exhaust every one/two-cell clobber/restore assignment for `k=2,3` and replay every legal order numerically. Remove each restore-to-final obligation in turn and replay a constructed numeric counterorder.
 
-Frozen result: 16 configurations, 122,783 target executions, 116,016 unrestricted orders, 71,225 repaired orders, 82 layouts, 5,952 layout-order replays, 647 unsafe controls, and zero mismatch.
+Frozen result: 16 configurations, 122,879 target executions, 116,016 unrestricted orders, 71,225 repaired orders, 96 exact split-order replays with identical order sets, 82 layouts, 5,952 layout-order replays, 647 unsafe controls, and zero mismatch.
 
 ## Overfitting interpretation
 
@@ -83,4 +84,4 @@ There is no learned model, parameter fitting, benchmark selection by score, or s
 
 ## Resources and determinism
 
-The runner uses one process, no network, solver, GPU, model/API, private data, or external compute. It applies a 3 GiB virtual-address guard and 240-second CPU guard. Deterministic comparison excludes timing fields and compares all other summary/case/CSV data.
+The runner uses one experiment worker, serial suites, and serial public-CLI subprocesses; it uses no network, solver, GPU, model/API, private data, or external compute. On POSIX, the 3 GiB virtual-address and 240-second CPU guards are per process and inherited by children, not aggregate process-tree budgets. `process_time` and `RUSAGE_SELF` measure the worker; completed-child CPU comes from `RUSAGE_CHILDREN`; child RSS is not reported or summed. The reference run was Linux 6.18.44 with CPython 3.13.5; earlier frozen-run OS/Python details are unknown and not recoverable. Deterministic comparison excludes timing fields and compares eight scientific summaries, all case files, and every non-timing CSV field.

@@ -8,7 +8,9 @@ import tempfile
 from pathlib import Path
 
 from .checker import structure, verify, Rejected
-from .producer import produce
+from .producer import produce, maximum_closure
+from .interpreter import execute, MASK
+from .examples import packet_cross_read_program
 from .packets import build_residual_fan, compile_restoring_fan
 from .oracles import closure, orders, production_prediction
 
@@ -142,39 +144,179 @@ def _black_box_audit():
             'tracebacks': 0}
 
 
+def _sequential_packet_commit_mutant(program, inputs):
+    """Test-only local mutant: commit packet effects one by one."""
+    order = structure(program)['order']
+    memory = {0: [value & MASK for value in inputs],
+              1: [None] * len(program['source']['outputs'])}
+
+    def load(location):
+        buffer_id, slot = location
+        if (buffer_id not in memory or not 0 <= slot < len(memory[buffer_id])
+                or memory[buffer_id][slot] is None):
+            raise ValueError('invalid or uninitialized target read')
+        return memory[buffer_id][slot]
+
+    def evaluate(effect):
+        if effect['kind'] == 'copy':
+            return load(effect['src'])
+        args = [load(location) for location in effect['args']]
+        op = effect['op']
+        if op == 'const':
+            value = effect['literal']
+        elif op == 'add':
+            value = args[0] + args[1]
+        elif op == 'sub':
+            value = args[0] - args[1]
+        elif op == 'mul':
+            value = args[0] * args[1]
+        elif op == 'xor':
+            value = args[0] ^ args[1]
+        else:
+            raise ValueError('unknown target operator')
+        return value & MASK
+
+    result = None
+    for event_id in order:
+        event = program['events'][event_id]
+        kind = event['kind']
+        if kind == 'entry':
+            continue
+        if kind == 'alloc':
+            memory[event['buffer']] = [None] * program['buffers'][event['buffer']]['cells']
+        elif kind == 'free':
+            del memory[event['buffer']]
+        elif kind in ('copy', 'eval'):
+            buffer_id, slot = event['dst']
+            memory[buffer_id][slot] = evaluate(event)
+        elif kind == 'packet':
+            for effect in event['effects']:
+                buffer_id, slot = effect['dst']
+                memory[buffer_id][slot] = evaluate(effect)
+        elif kind == 'exit':
+            result = [load([1, slot]) for slot in range(len(memory[1]))]
+        else:
+            raise ValueError('unknown target event')
+    return result
+
+
+def _packet_snapshot_semantics():
+    inputs = [7, 19]
+    expected = [7]
+    variants = []
+    for reverse_effects in (False, True):
+        program = packet_cross_read_program(initialized=True)
+        if reverse_effects:
+            program['events'][program['packet_event']]['effects'].reverse()
+        certificate, budget = produce(program)
+        verify(program, certificate, budget)
+        output, _ = execute(program, inputs, structure(program)['order'])
+        if output != expected:
+            raise AssertionError(('packet snapshot output', reverse_effects, output))
+        variants.append(output)
+    if variants[0] != variants[1]:
+        raise AssertionError('packet effect permutation changed snapshot result')
+
+    initialized = packet_cross_read_program(initialized=True)
+    sequential_output = _sequential_packet_commit_mutant(initialized, inputs)
+    if sequential_output != [19] or sequential_output == expected:
+        raise AssertionError(('sequential packet mutant was not exposed', sequential_output))
+
+    uninitialized = packet_cross_read_program(initialized=False)
+    try:
+        produce(uninitialized)
+    except Rejected as error:
+        checker_rejection = str(error)
+    else:
+        raise AssertionError('same-packet source incorrectly accepted')
+    if checker_rejection != 'required source unavailable before read':
+        raise AssertionError(('unexpected uninitialized rejection', checker_rejection))
+    try:
+        execute(uninitialized, inputs, structure(uninitialized)['order'])
+    except ValueError as error:
+        numeric_rejection = str(error)
+    else:
+        raise AssertionError('snapshot interpreter read uninitialized packet source')
+    if numeric_rejection != 'invalid or uninitialized target read':
+        raise AssertionError(('unexpected numeric rejection', numeric_rejection))
+    if _sequential_packet_commit_mutant(uninitialized, inputs) != [19]:
+        raise AssertionError('sequential mutant did not consume same-packet write')
+
+    return {
+        'initialized_effect_orders_checked': 2,
+        'snapshot_outputs': variants,
+        'effect_order_mismatches': 0,
+        'sequential_commit_mutants_exposed': 1,
+        'sequential_mutant_output': sequential_output,
+        'uninitialized_same_packet_source_rejected_by_checker': True,
+        'uninitialized_same_packet_source_rejected_by_snapshot_interpreter': True,
+    }
+
+
 def _mutation_sensitivity():
     import refcert.checker as checker
     from .examples import restoring_diamond, unsafe_diamond
 
     safe = restoring_diamond()
-    certificate, budget = produce(safe)
+    safe_certificate, _ = produce(safe)
     unsafe = unsafe_diamond()
+    state = structure(unsafe)
+    rescue = copy.deepcopy(safe_certificate['rescue'])
+    final_read_row = next(
+        index for index, (read_event, location, want) in enumerate(state['reads'])
+        if read_event == 7 and location == (2, 0) and want == 0
+    )
+    # Writer 6 is a valid good predecessor of the read but does not follow bad
+    # writer 3.  Every supplied restorer is therefore legal; only coverage fails.
+    rescue[final_read_row] = [6]
+    flow, ideal, scratch_peak = maximum_closure(state['weights'], unsafe['edges'])
+    certificate = {'rescue': rescue, 'flow': flow, 'peak_ideal': ideal}
+    budget = state['persistent'] + scratch_peak
     try:
         verify(unsafe, certificate, budget)
-    except Rejected:
-        original_rejected = True
+    except Rejected as error:
+        original_rejection = str(error)
     else:
-        original_rejected = False
-    if not original_rejected:
-        raise AssertionError('negative control not rejected by original predicate')
+        raise AssertionError('focused missing-coverage certificate was accepted')
+    if original_rejection != 'possible wrong last writer':
+        raise AssertionError(('negative control failed for the wrong reason',
+                              original_rejection))
 
     original = checker.check_read_cover
     try:
-        def mutant(pred, writers, read_event, want, chosen):
-            if not any(tag == want and pred[read_event] >> writer & 1
-                       for writer, tag in writers):
-                raise Rejected('required source unavailable before read')
-            return 1, len(chosen)
-        checker.check_read_cover = mutant
+        def missing_coverage_mutant(pred, writers, read_event, want, chosen):
+            checker.require(type(chosen) is list and len(chosen) <= len(pred),
+                            'rescue set shape')
+            tagged = dict(writers)
+            good = [writer for writer, tag in tagged.items()
+                    if tag == want and pred[read_event] >> writer & 1]
+            checker.require(bool(good), 'required source unavailable before read')
+            seen = set()
+            for writer in chosen:
+                checker.integer(writer, 0, len(pred) - 1)
+                checker.require(writer not in seen and writer in tagged
+                                and tagged[writer] == want
+                                and pred[read_event] >> writer & 1,
+                                'invalid restoring writer')
+                seen.add(writer)
+            # Deliberate mutation: omit only the bad-writer coverage loop.
+            return len(good), len(seen)
+
+        checker.check_read_cover = missing_coverage_mutant
         verify(unsafe, certificate, budget)
-        mutant_accepts_unsafe = True
+        mutant_accepts = True
     except Rejected:
-        mutant_accepts_unsafe = False
+        mutant_accepts = False
     finally:
         checker.check_read_cover = original
-    if not mutant_accepts_unsafe:
-        raise AssertionError('mutation was not exposed by negative control')
-    return {'mutants': 1, 'detected_by_negative_control': 1}
+    if not mutant_accepts:
+        raise AssertionError('focused missing-coverage mutant was not exposed')
+    return {
+        'focused_missing_coverage_mutants': 1,
+        'all_supplied_restorers_legal': True,
+        'original_rejection': original_rejection,
+        'mutant_acceptances': 1,
+    }
 
 
 def _heldout_provenance():
@@ -225,5 +367,6 @@ def _heldout_provenance():
 def robustness_audit():
     return {'metamorphic': _metamorphic_audit(),
             'black_box_cli': _black_box_audit(),
+            'packet_snapshot_semantics': _packet_snapshot_semantics(),
             'mutation_sensitivity': _mutation_sensitivity(),
             'heldout_provenance': _heldout_provenance()}

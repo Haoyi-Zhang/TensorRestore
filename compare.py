@@ -8,7 +8,9 @@ SUMMARY_FILES = (
     'tests-summary.json',
     'provenance-summary.json',
     'memory-summary.json',
+    'cover-summary.json',
     'stores-summary.json',
+    'robustness-summary.json',
     'kernels-summary.json',
     'packets-summary.json',
 )
@@ -16,10 +18,14 @@ CSV_FILES = ('kernels.csv', 'packets.csv')
 
 
 def load(path):
+    if not path.is_file():
+        raise AssertionError(f'missing {path.name}')
     return json.loads(path.read_text(encoding='utf-8'))
 
 
 def normalized_csv(path):
+    if not path.is_file():
+        raise AssertionError(f'missing {path.name}')
     with path.open(newline='', encoding='utf-8') as stream:
         return [
             {key: value for key, value in row.items() if not key.endswith('_seconds')}
@@ -27,10 +33,8 @@ def normalized_csv(path):
         ]
 
 
-def main():
-    if len(sys.argv) != 3:
-        raise SystemExit('usage: python compare.py EXPECTED REPRODUCED')
-    left, right = map(Path, sys.argv[1:])
+def compare_directories(left, right):
+    left, right = Path(left), Path(right)
     for name in SUMMARY_FILES:
         if load(left / name) != load(right / name):
             raise AssertionError(name)
@@ -41,7 +45,14 @@ def main():
     for name in CSV_FILES:
         if normalized_csv(left / name) != normalized_csv(right / name):
             raise AssertionError(f'{name} deterministic columns')
-    print('MATCH: deterministic summaries, all supplied cases, and all CSV result columns except timing.')
+
+
+def main():
+    if len(sys.argv) != 3:
+        raise SystemExit('usage: python compare.py EXPECTED REPRODUCED')
+    compare_directories(Path(sys.argv[1]), Path(sys.argv[2]))
+    print('MATCH: eight deterministic scientific summaries, all supplied cases, '
+          'and all CSV result columns except timing.')
 
 
 if __name__ == '__main__':

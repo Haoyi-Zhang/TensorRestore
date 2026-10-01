@@ -309,12 +309,16 @@ def diagnostic_dead_stores():
     joint_counterexample = {
         'events': ['write-1-a', 'write-1-b', 'read-1'],
         'linear_extensions': len(ts),
+        'observation_interface': ['read-1'],
+        'initialization': {'value': 0, 'deletable_in_proposition': False},
         'original_observed_values': values({0, 1}),
         'delete_first_observed_values': values({1}),
         'delete_second_observed_values': values({0}),
         'delete_both_observed_values': values(set()),
-        'interpretation': ('Each write is individually erasable, but the pair is '
-                           'not jointly erasable.')}
+        'interpretation': ('Relative to the full declared observation interface, '
+                           'including read-1, each noninitial write is individually '
+                           'erasable but the pair is not jointly erasable; deleting '
+                           'both changes the protected read from 1 to 0.')}
     if (joint_counterexample['original_observed_values'] != [1] or
             joint_counterexample['delete_first_observed_values'] != [1] or
             joint_counterexample['delete_second_observed_values'] != [1] or

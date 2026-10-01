@@ -127,37 +127,47 @@ reads then contain exactly the declared source values. QED.
 
 ## 4. Exact scalar-cleanup boundary
 
-A family \(D\) of scalar write effects is **jointly erasable** relative to the
-declared observation interface when deleting all effects in \(D\) simultaneously
-preserves every other event effect and precedence edge and leaves every declared
-observation unchanged. This is stronger than saying that each member can be deleted
-in isolation. Atomic packet subeffects are not jointly erasable when the schedule
-contract forbids splitting the packet.
+Fix a declared observation interface \(\mathcal O\): all output reads and any
+explicitly protected internal reads.  In this section the distinguished read
+\(r\) is an element of \(\mathcal O\).  Initialization is part of the fixed input
+and lifetime contract and is not eligible for deletion in the proposition below.
+A family \(D\) of **noninitial scalar write effects** is jointly erasable relative
+to \(\mathcal O\) when simultaneously replacing every effect in \(D\) by a no-op
+at its destination, while retaining event identifiers, all precedence edges, and
+every other event effect, leaves every observation in \(\mathcal O\) unchanged for
+every legal linear extension.  This is stronger than deleting each member in
+isolation.  Atomic packet subeffects are outside this definition when the external
+schedule contract forbids splitting the packet.
 
 ### Proposition 3 (conditional single-read cleanup)
 
-Consider one observed read \(r\) of one cell whose target is safe in every linear
-extension. If either (i) initialization already has the required tag and all later
-writes to the cell are jointly erasable, or (ii) there is a good writer \(g<_P r\)
-and all other writes to the cell are jointly erasable while \(g\) is retained, then
-deleting that jointly erasable family yields an observationally equivalent target
-accepted by the single-restorer rule.
+Consider a target that is safe at \(r\in\mathcal O\) in every linear extension,
+with its initialization fixed.  If either (i) initialization has the required tag
+and the family of all noninitial writes to the cell is jointly erasable relative
+to the full interface \(\mathcal O\), or (ii) one good writer \(g<_P r\) is
+retained and the family of all other noninitial writes to the cell is jointly
+erasable relative to \(\mathcal O\), then erasing that family yields a
+\(\mathcal O\)-equivalent target accepted by the single-restorer rule.
 
-**Proof.** In case (i), deletion leaves only the correct initialization before the
-read, so the empty restoration set is sufficient. In case (ii), deletion leaves
-\(g\) as the only noninitial candidate writer before \(r\); the correct
-initialization, if present, is harmless, and a bad initialization is covered by
-\(g\). Thus \(g\) is a single accepted restorer. Observational equivalence is
-exactly the joint-erasability premise. QED.
+**Proof.** In case (i), erasure leaves the fixed correct initialization as the only
+candidate last writer before \(r\), so the empty restoration set is sufficient. In
+case (ii), erasure leaves \(g\) as the only noninitial candidate writer before
+\(r\); a correct initialization is harmless, and an incorrect initialization is
+ordered before and covered by \(g\). Thus at most the single restorer \(g\) is
+needed. Equality of all protected observations, including \(r\), is exactly the
+joint-erasability premise. QED.
 
-Individual erasability is insufficient. Start a cell at tag zero, let two unordered
-scalar effects both write tag one, and then read tag one after both. Deleting either
-write alone preserves the read, whereas deleting both changes it to zero. The
+Individual erasability is insufficient under this full observation definition.
+Fix initialization at tag zero, let two unordered noninitial scalar effects both
+write tag one, and protect a final read of tag one after both.  Deleting either
+write alone preserves the protected read, whereas deleting both changes it to zero;
+therefore the pair is not jointly erasable relative to \(\mathcal O=\{r\}\).  The
 artifact replays this counterexample. Consequently, the bounded scalar diagnostic
 does not justify a universal scalar-collapse theorem: it establishes only that its
-six small set-valued separations admit an exact jointly erasable cleanup. A durable
-positive example must instead make the interfering effect inseparable from a
-required effect or another explicit interface obligation.
+six small set-valued separations admit an exact simultaneous cleanup preserving all
+reads in that finite diagnostic. A durable positive example must instead make the
+interfering effect inseparable from a required effect or another explicit interface
+obligation.
 
 ## 5. Effect-coupled residual fan and the exact transformation boundary
 
@@ -204,8 +214,10 @@ For every \(k\ge2\):
    single-restorer rule accept;
 8. directly forwarding the immutable input to the residual output preserves packet
    atoms, one-cell capacity, and all original orders and passes the single-restorer
-   rule, but changes the final-read interface; splitting away the scratch effects
-   also matches one cell and all orders, but changes the packet contract.
+   rule, but changes the final-read interface; the split baseline removes only each
+   packet's scratch subeffect while retaining every original event identifier,
+   restore, and edge, so it also matches one cell and the identical order relation
+   but changes the packet contract.
 
 **Proof.** For (1), every packet \(p_i\) is followed by its matching restore
 \(q_i\), and every \(q_i\) precedes \(f\). Therefore the last writer of \(h\) before
@@ -257,9 +269,14 @@ capacity is unchanged.
 For (8), change only \(f\)'s source from \(h\) to the immutable input cell holding
 \(a\). Packet atoms and precedence edges remain intact, but the distinguished
 scratch read has been replaced, so this transformation lies outside fixed-final-read
-recoloring. Alternatively, removing every scratch-clobber subeffect leaves only the
-unique output writes and changes the atom contract. Both constructions show why
-atomicity by itself is insufficient for a universal one-cell advantage. QED.
+recoloring.  For the split construction, start from the shared graph, retain every
+event identifier, restore, and edge, and replace each packet at the same event site
+by its surviving scalar output effect.  Only the scratch-clobber subeffect is
+removed.  The reachability relation and linear-extension set are therefore
+literally unchanged rather than compared through a projection; the retained
+restores keep the final anchor correct.  This target changes the packet/effect
+contract.  Both constructions show why atomicity by itself is insufficient for a
+universal one-cell advantage. QED.
 
 ### Corollary 4.1 (exact order-space cost of edge repair)
 

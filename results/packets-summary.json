@@ -24,10 +24,10 @@
   "fixed_read_layout_oracle_mismatches": 0,
   "fixed_read_layout_orders_replayed": 5952,
   "fixed_read_safe_layouts_checked": 38,
-  "interpretation": "The shared fixed-read target needs a set-valued cover. Within event/order/final-read-preserving storage recoloring, one cell cannot pass the single-restorer rule and a two-cell quarantine is optimal. Direct final-value forwarding matches one cell and all orders by changing the read interface; packet splitting changes the atom contract.",
+  "interpretation": "The shared fixed-read target needs a set-valued cover. Within event/order/final-read-preserving storage recoloring, one cell cannot pass the single-restorer rule and a two-cell quarantine is optimal. Direct final-value forwarding matches one cell and all orders by changing the read interface. The split baseline removes only packet scratch subeffects while retaining every event identifier, restore, and edge, so it has the identical order relation but changes the atom contract.",
   "max_events": 390,
   "mismatches": 0,
-  "numeric_target_executions": 122783,
+  "numeric_target_executions": 122879,
   "one_cell_single_rescuer_acceptances": 0,
   "packet_events_indispensable_in_shared_interface": 647,
   "proved_fixed_read_min_single_rescuer_cells": 2,
@@ -39,6 +39,10 @@
   "single_rescuer_shared_acceptances": 0,
   "single_rescuer_split_acceptances": 16,
   "source_formula_checks": 48,
+  "split_configurations_with_identical_event_order_relation": 16,
+  "split_exact_orders_replayed": 96,
+  "split_order_mismatches": 0,
+  "split_small_order_sets_checked": 2,
   "two_cell_single_rescuer_acceptances": 28,
   "unsafe_negative_controls": 647
 }

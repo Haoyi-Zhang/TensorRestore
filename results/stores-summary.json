@@ -48,8 +48,15 @@
       "write-1-b",
       "read-1"
     ],
-    "interpretation": "Each write is individually erasable, but the pair is not jointly erasable.",
+    "initialization": {
+      "deletable_in_proposition": false,
+      "value": 0
+    },
+    "interpretation": "Relative to the full declared observation interface, including read-1, each noninitial write is individually erasable but the pair is not jointly erasable; deleting both changes the protected read from 1 to 0.",
     "linear_extensions": 2,
+    "observation_interface": [
+      "read-1"
+    ],
     "original_observed_values": [
       1
     ]

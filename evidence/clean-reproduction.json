@@ -8,10 +8,9 @@
     "python reference_audit.py --bib ../paper/references.bib --tex ../paper/paper.tex",
     "python build.py"
   ],
-  "deterministic_compare": "MATCH: deterministic summaries, all supplied cases, and all CSV result columns except timing.",
+  "deterministic_compare": "MATCH: eight deterministic scientific summaries, all supplied cases, and all CSV result columns except timing.",
   "interpretation": "Local clean-tree self-reproduction, not independent third-party reproduction.",
   "paper_pages": 24,
-  "paper_sha256": "b6bc5c382b45629bc1f55833033f11c72c89d3c39ffe02cd0194a48bf8c0528d",
   "reference_audit_status": "PASS",
   "references_start_page": 21,
   "representative_case": {
@@ -24,12 +23,35 @@
     "upper_cells": 11
   },
   "resource_observation": {
-    "cpu_seconds": 13.845473717,
-    "peak_rss_kib": 130736,
-    "wall_seconds": 16.423229426000034
+    "accounted_cpu_seconds": 27.096433292,
+    "completed_cli_child_cpu_seconds": 4.9558979999999995,
+    "execution_model": {
+      "cli_subprocesses": "serial only (public-CLI robustness checks)",
+      "experiment_workers": 1,
+      "suite_scheduling": "serial in the main worker"
+    },
+    "main_process_peak_rss": 131372,
+    "main_process_peak_rss_unit": "KiB",
+    "measurement_scope": "process_time and RUSAGE_SELF describe only the main experiment worker. Completed serial child CPU is added from RUSAGE_CHILDREN. Child RSS is not reported or summed; the main-process peak is not a process-tree peak.",
+    "reference_environment": {
+      "legacy_environment_for_preceding_frozen_runs": "unknown/not recoverable",
+      "os": "Linux",
+      "os_release": "6.18.44",
+      "python_implementation": "cpython",
+      "python_version": "3.13.5",
+      "resource_module_assumption": "POSIX resource semantics; Windows requires adaptation."
+    },
+    "resource_limits": {
+      "cpu_limit_seconds_per_process": 240,
+      "scope": "POSIX per-process limits on the worker, inherited by spawned CLI children; the CPU limit is not an aggregate process-tree limit.",
+      "single_cpu_affinity_applied": true,
+      "virtual_address_limit_bytes_per_process": 3221225472
+    },
+    "wall_seconds": 27.12168602199995,
+    "worker_cpu_seconds": 22.140535292
   },
   "scholarly_references": 73,
-  "scope": "Clean copy of the final full project before archive creation; deterministic scientific outputs compared against frozen results.",
+  "scope": "Clean copy of the current full project before archive creation; deterministic scientific outputs were compared against the frozen results.",
   "status": "PASS",
-  "unit_tests": 29
+  "unit_tests": 36
 }
