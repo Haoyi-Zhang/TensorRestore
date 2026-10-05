@@ -147,7 +147,9 @@ and the family of all noninitial writes to the cell is jointly erasable relative
 to the full interface \(\mathcal O\), or (ii) one good writer \(g<_P r\) is
 retained and the family of all other noninitial writes to the cell is jointly
 erasable relative to \(\mathcal O\), then erasing that family yields a
-\(\mathcal O\)-equivalent target accepted by the single-restorer rule.
+\(\mathcal O\)-equivalent target in which the distinguished read \(r\)
+admits a restoration witness of size at most one. Other reads are not covered
+by this conclusion unless the corresponding cleanup hypotheses also hold.
 
 **Proof.** In case (i), erasure leaves the fixed correct initialization as the only
 candidate last writer before \(r\), so the empty restoration set is sufficient. In

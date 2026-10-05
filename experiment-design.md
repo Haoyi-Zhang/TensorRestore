@@ -55,7 +55,7 @@ Also check:
 - a focused certificate whose supplied restorer is legal but fails to cover one possible wrong last writer: the unchanged checker must reject with `possible wrong last writer`, while a mutant deleting only that coverage test accepts; and
 - a packet cross-read/write case with `a != x`, both effect orders, a local sequential-commit mutant, and an uninitialized same-packet-source rejection.
 
-Frozen result: 1,152 holdout cases, 11,542 extension replays, four metamorphic checks, four CLI checks, one focused missing-coverage mutant exposed, two initialized packet effect orders invariant under snapshot commit, one sequential-commit mutant exposed, and both checker and snapshot interpreter rejecting the uninitialized same-packet source.
+Frozen result: 1,152 holdout cases, 11,542 extension replays, four metamorphic checks, four CLI checks, one focused missing-coverage mutant exposed, two initialized packet effect orders invariant under snapshot commit, one sequential-commit mutant exposed, and both producer and snapshot interpreter rejecting the uninitialized same-packet source. The latter negative case does not directly invoke the certificate checker.
 
 ## Bounded tensor suite
 

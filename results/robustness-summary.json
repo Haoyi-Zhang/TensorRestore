@@ -38,7 +38,7 @@
         7
       ]
     ],
-    "uninitialized_same_packet_source_rejected_by_checker": true,
+    "uninitialized_same_packet_source_rejected_by_producer": true,
     "uninitialized_same_packet_source_rejected_by_snapshot_interpreter": true
   }
 }

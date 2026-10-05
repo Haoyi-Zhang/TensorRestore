@@ -226,11 +226,11 @@ def _packet_snapshot_semantics():
     try:
         produce(uninitialized)
     except Rejected as error:
-        checker_rejection = str(error)
+        producer_rejection = str(error)
     else:
         raise AssertionError('same-packet source incorrectly accepted')
-    if checker_rejection != 'required source unavailable before read':
-        raise AssertionError(('unexpected uninitialized rejection', checker_rejection))
+    if producer_rejection != 'required source unavailable before read':
+        raise AssertionError(('unexpected uninitialized rejection', producer_rejection))
     try:
         execute(uninitialized, inputs, structure(uninitialized)['order'])
     except ValueError as error:
@@ -248,7 +248,7 @@ def _packet_snapshot_semantics():
         'effect_order_mismatches': 0,
         'sequential_commit_mutants_exposed': 1,
         'sequential_mutant_output': sequential_output,
-        'uninitialized_same_packet_source_rejected_by_checker': True,
+        'uninitialized_same_packet_source_rejected_by_producer': True,
         'uninitialized_same_packet_source_rejected_by_snapshot_interpreter': True,
     }
 
