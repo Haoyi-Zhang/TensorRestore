@@ -1,0 +1,433 @@
+{
+  "accounted_cpu_seconds": 19.659554625,
+  "completed_cli_child_cpu_seconds": 0.145577,
+  "execution_model": {
+    "cli_subprocesses": "serial only (public-CLI robustness checks)",
+    "experiment_workers": 1,
+    "suite_scheduling": "serial in the main worker"
+  },
+  "main_process_peak_rss": 55448,
+  "main_process_peak_rss_unit": "KiB",
+  "measurement_scope": "process_time and RUSAGE_SELF describe only the main experiment worker. Completed serial child CPU is added from RUSAGE_CHILDREN. Child RSS is not reported or summed; the main-process peak is not a process-tree peak.",
+  "reference_environment": {
+    "legacy_environment_for_preceding_frozen_runs": "unknown/not recoverable",
+    "os": "Linux",
+    "os_release": "6.17.0-1022-azure",
+    "python_implementation": "cpython",
+    "python_version": "3.13.15",
+    "resource_module_assumption": "POSIX resource semantics; Windows requires adaptation."
+  },
+  "resource_limits": {
+    "cpu_limit_seconds_per_process": 240,
+    "scope": "POSIX per-process limits on the worker, inherited by spawned CLI children; the CPU limit is not an aggregate process-tree limit.",
+    "single_cpu_affinity_applied": true,
+    "virtual_address_limit_bytes_per_process": 3221225472
+  },
+  "results": {
+    "cover": {
+      "by_universe_size": [
+        {
+          "mismatches": 0,
+          "set_systems": 1,
+          "universe_size": 1
+        },
+        {
+          "mismatches": 0,
+          "set_systems": 5,
+          "universe_size": 2
+        },
+        {
+          "mismatches": 0,
+          "set_systems": 101,
+          "universe_size": 3
+        },
+        {
+          "mismatches": 0,
+          "set_systems": 4505,
+          "universe_size": 4
+        }
+      ],
+      "mismatches": 0,
+      "nonminimal_greedy_witness": {
+        "greedy_choice": [
+          0,
+          1,
+          2
+        ],
+        "greedy_size": 3,
+        "optimum_choice": [
+          1,
+          2
+        ],
+        "optimum_size": 2,
+        "sets": [
+          [
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            1,
+            4
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ]
+        ],
+        "universe_size": 6
+      },
+      "systems_checked": 4612
+    },
+    "kernels": {
+      "core_certificate_reuses": 234,
+      "diamond_linearizations": 6,
+      "dimensions": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "families": 8,
+      "input_seed_rule": "271828 + input_count",
+      "interpretation": "Hand-written bounded mathematical constructors; not production compiler integration or workload breadth.",
+      "max_events": 716,
+      "mismatches": 0,
+      "order_seeds": [
+        -1,
+        -2,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "schedule_configurations": 234,
+      "single_rescuer_accepted_configurations": 234,
+      "source_instances": 40,
+      "source_reference_comparisons": 200,
+      "target_executions": 9360,
+      "unsafe_diamond_linearizations": 10
+    },
+    "memory": [
+      {
+        "events": 2,
+        "ideals": 7,
+        "mismatches": 0,
+        "posets": 2,
+        "weight_cases": 18
+      },
+      {
+        "events": 3,
+        "ideals": 40,
+        "mismatches": 0,
+        "posets": 7,
+        "weight_cases": 189
+      },
+      {
+        "events": 4,
+        "ideals": 357,
+        "mismatches": 0,
+        "posets": 40,
+        "weight_cases": 3240
+      },
+      {
+        "events": 5,
+        "ideals": 4824,
+        "mismatches": 0,
+        "posets": 357,
+        "weight_cases": 86751
+      }
+    ],
+    "packets": {
+      "branch_counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        16,
+        24,
+        32,
+        48,
+        64,
+        96,
+        128,
+        192
+      ],
+      "configurations": 16,
+      "exact_repaired_orders_enumerated": 71225,
+      "exact_unrestricted_orders_enumerated": 116016,
+      "fixed_read_layout_assignments_checked": 82,
+      "fixed_read_layout_oracle_mismatches": 0,
+      "fixed_read_layout_orders_replayed": 5952,
+      "fixed_read_safe_layouts_checked": 38,
+      "interpretation": "The shared fixed-read target needs a set-valued cover. Within event/order/final-read-preserving storage recoloring, one cell cannot pass the single-restorer rule and a two-cell quarantine is optimal. Direct final-value forwarding matches one cell and all orders by changing the read interface. The split baseline removes only packet scratch subeffects while retaining every event identifier, restore, and edge, so it has the identical order relation but changes the atom contract.",
+      "max_events": 390,
+      "mismatches": 0,
+      "numeric_target_executions": 122879,
+      "one_cell_single_rescuer_acceptances": 0,
+      "packet_events_indispensable_in_shared_interface": 647,
+      "proved_fixed_read_min_single_rescuer_cells": 2,
+      "restore_events_indispensable_in_shared_interface": 647,
+      "single_rescuer_forwarded_acceptances": 16,
+      "single_rescuer_injective_private_acceptances": 16,
+      "single_rescuer_quarantine_acceptances": 16,
+      "single_rescuer_repaired_acceptances": 16,
+      "single_rescuer_shared_acceptances": 0,
+      "single_rescuer_split_acceptances": 16,
+      "source_formula_checks": 48,
+      "split_configurations_with_identical_event_order_relation": 16,
+      "split_exact_orders_replayed": 96,
+      "split_order_mismatches": 0,
+      "split_small_order_sets_checked": 2,
+      "two_cell_single_rescuer_acceptances": 28,
+      "unsafe_checker_coverage_rejections": 647,
+      "unsafe_negative_controls": 647
+    },
+    "provenance": [
+      {
+        "events": 2,
+        "linear_extensions": 3,
+        "mismatches": 0,
+        "posets": 2,
+        "production_predicate_calls": 24,
+        "tagged_read_cases": 24,
+        "unsafe_cases_with_replayed_countertrace": 14
+      },
+      {
+        "events": 3,
+        "linear_extensions": 20,
+        "mismatches": 0,
+        "posets": 7,
+        "production_predicate_calls": 378,
+        "tagged_read_cases": 378,
+        "unsafe_cases_with_replayed_countertrace": 251
+      },
+      {
+        "events": 4,
+        "linear_extensions": 260,
+        "mismatches": 0,
+        "posets": 40,
+        "production_predicate_calls": 8640,
+        "tagged_read_cases": 8640,
+        "unsafe_cases_with_replayed_countertrace": 6344
+      },
+      {
+        "events": 5,
+        "linear_extensions": 6105,
+        "mismatches": 0,
+        "posets": 357,
+        "production_predicate_calls": 289170,
+        "tagged_read_cases": 289170,
+        "unsafe_cases_with_replayed_countertrace": 229090
+      }
+    ],
+    "robustness": {
+      "black_box_cli": {
+        "accepted_cases": 1,
+        "cleanly_rejected_cases": 3,
+        "tracebacks": 0
+      },
+      "heldout_provenance": {
+        "cases": 1152,
+        "event_count": 6,
+        "graphs": 96,
+        "linear_extension_replays": 11542,
+        "mismatches": 0,
+        "role": "frozen post-formulation implementation holdout; not workload breadth",
+        "seed": 8675309
+      },
+      "metamorphic": {
+        "checks": 4,
+        "mismatches": 0
+      },
+      "mutation_sensitivity": {
+        "all_supplied_restorers_legal": true,
+        "focused_missing_coverage_mutants": 1,
+        "mutant_acceptances": 1,
+        "original_rejection": "possible wrong last writer"
+      },
+      "packet_snapshot_semantics": {
+        "effect_order_mismatches": 0,
+        "initialized_effect_orders_checked": 2,
+        "sequential_commit_mutants_exposed": 1,
+        "sequential_mutant_output": [
+          19
+        ],
+        "snapshot_outputs": [
+          [
+            7
+          ],
+          [
+            7
+          ]
+        ],
+        "uninitialized_same_packet_source_rejected_by_producer": true,
+        "uninitialized_same_packet_source_rejected_by_snapshot_interpreter": true
+      }
+    },
+    "stores": {
+      "exhaustive": [
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 2,
+          "mixed_cases": 8,
+          "posets": 2,
+          "safe_cases": 6,
+          "single_rejections": 0
+        },
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 3,
+          "mixed_cases": 126,
+          "posets": 7,
+          "safe_cases": 70,
+          "single_rejections": 0
+        },
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 4,
+          "mixed_cases": 2560,
+          "posets": 40,
+          "safe_cases": 984,
+          "single_rejections": 0
+        },
+        {
+          "after_unobservable_store_removal": 0,
+          "events": 5,
+          "mixed_cases": 74970,
+          "posets": 357,
+          "safe_cases": 19035,
+          "single_rejections": 6
+        }
+      ],
+      "joint_erasure_counterexample": {
+        "delete_both_observed_values": [
+          0
+        ],
+        "delete_first_observed_values": [
+          1
+        ],
+        "delete_second_observed_values": [
+          1
+        ],
+        "events": [
+          "write-1-a",
+          "write-1-b",
+          "read-1"
+        ],
+        "initialization": {
+          "deletable_in_proposition": false,
+          "value": 0
+        },
+        "interpretation": "Relative to the full declared observation interface, including read-1, each noninitial write is individually erasable but the pair is not jointly erasable; deleting both changes the protected read from 1 to 0.",
+        "linear_extensions": 2,
+        "observation_interface": [
+          "read-1"
+        ],
+        "original_observed_values": [
+          1
+        ]
+      },
+      "six_event_caution": {
+        "all_writes_potentially_observable": true,
+        "interpretation": "Two writes repeat the initial tag. Removing both preserves both reads; mere potential observability is not enough to exclude redundant stores.",
+        "labels": [
+          0,
+          0,
+          -1,
+          1,
+          1,
+          -1
+        ],
+        "linear_extensions": 16,
+        "pred": [
+          0,
+          0,
+          0,
+          5,
+          6,
+          31
+        ],
+        "read_last_writers": {
+          "2": [
+            -1,
+            0,
+            1
+          ],
+          "5": [
+            3,
+            4
+          ]
+        },
+        "single_rescuer_accepts_final_read": false
+      }
+    },
+    "tests": {
+      "errors": 0,
+      "failures": 0,
+      "successful": true,
+      "tests": 39
+    }
+  },
+  "suite": "all",
+  "timing": {
+    "cover": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 0.1889874330000083,
+      "worker_cpu_seconds": 0.18898201000000014
+    },
+    "kernels": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 2.661276891,
+      "worker_cpu_seconds": 2.6605709220000007
+    },
+    "memory": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 2.3118464450000005,
+      "worker_cpu_seconds": 2.311753913
+    },
+    "packets": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 11.076503208999995,
+      "worker_cpu_seconds": 11.075450932999999
+    },
+    "provenance": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 2.5024167509999984,
+      "worker_cpu_seconds": 2.497500943
+    },
+    "robustness": {
+      "completed_cli_child_cpu_seconds": 0.145577,
+      "wall_seconds": 0.17480284900000242,
+      "worker_cpu_seconds": 0.02708994799999953
+    },
+    "stores": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 0.611109564000003,
+      "worker_cpu_seconds": 0.6108509819999997
+    },
+    "tests": {
+      "completed_cli_child_cpu_seconds": 0.0,
+      "wall_seconds": 0.14072298699998953,
+      "worker_cpu_seconds": 0.139776826
+    }
+  },
+  "wall_seconds": 19.66966578399999,
+  "worker_cpu_seconds": 19.513977625
+}

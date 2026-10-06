@@ -1,0 +1,9 @@
+{
+  "accepted": true,
+  "upper_cells": 11,
+  "exact_peak_cells": 11,
+  "read_obligations": 27,
+  "events": 14,
+  "packet_events": 4,
+  "packet_effects": 8
+}

@@ -1,0 +1,514 @@
+{
+  "baselines": {
+    "edge_repair_orders": "1674",
+    "fixed_read_min_single_rescuer_cells": 2,
+    "forwarded_budget_cells": 11,
+    "injective_private_budget_cells": 15,
+    "quarantine_budget_cells": 12,
+    "split_budget_cells": 11,
+    "unrestricted_orders": "2520"
+  },
+  "budget_cells": 11,
+  "certificate": {
+    "flow": [],
+    "peak_ideal": [
+      0,
+      1
+    ],
+    "rescue": [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [
+        4,
+        6,
+        8,
+        10
+      ],
+      [
+        3
+      ],
+      [
+        5
+      ],
+      [
+        7
+      ],
+      [
+        9
+      ],
+      [
+        11
+      ]
+    ]
+  },
+  "comparison_class": {
+    "name": "fixed-final-read atom-preserving storage recoloring",
+    "permits": [
+      "scratch capacity and clobber/restore destination recoloring"
+    ],
+    "preserves": [
+      "source",
+      "events",
+      "edges",
+      "packet grouping",
+      "effect operations and operands",
+      "result tags and values",
+      "all non-scratch destinations",
+      "final scratch read"
+    ]
+  },
+  "expected_output": [
+    1821072958,
+    1698163737,
+    3529014939,
+    1649752548,
+    1894098001
+  ],
+  "input": [
+    1894098001,
+    477035119,
+    366102600,
+    2730351306,
+    313564597
+  ],
+  "program": {
+    "anchor_location": [
+      2,
+      0
+    ],
+    "buffers": [
+      {
+        "cells": 5,
+        "persistent": true
+      },
+      {
+        "cells": 5,
+        "persistent": true
+      },
+      {
+        "cells": 1,
+        "persistent": false
+      }
+    ],
+    "edges": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        4,
+        11
+      ],
+      [
+        6,
+        11
+      ],
+      [
+        8,
+        11
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        11,
+        12
+      ],
+      [
+        12,
+        13
+      ]
+    ],
+    "events": [
+      {
+        "kind": "entry"
+      },
+      {
+        "buffer": 2,
+        "kind": "alloc"
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "effects": [
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ]
+            ],
+            "dst": [
+              2,
+              0
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 5
+          },
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ]
+            ],
+            "dst": [
+              1,
+              0
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 5
+          }
+        ],
+        "kind": "packet"
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "effects": [
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ],
+            "dst": [
+              2,
+              0
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 6
+          },
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ],
+            "dst": [
+              1,
+              1
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 6
+          }
+        ],
+        "kind": "packet"
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "effects": [
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                3
+              ]
+            ],
+            "dst": [
+              2,
+              0
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 7
+          },
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                3
+              ]
+            ],
+            "dst": [
+              1,
+              2
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 7
+          }
+        ],
+        "kind": "packet"
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "effects": [
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                4
+              ]
+            ],
+            "dst": [
+              2,
+              0
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 8
+          },
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                4
+              ]
+            ],
+            "dst": [
+              1,
+              3
+            ],
+            "kind": "eval",
+            "op": "xor",
+            "value": 8
+          }
+        ],
+        "kind": "packet"
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "dst": [
+          1,
+          4
+        ],
+        "kind": "copy",
+        "src": [
+          2,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "buffer": 2,
+        "kind": "free"
+      },
+      {
+        "kind": "exit"
+      }
+    ],
+    "packets": [
+      3,
+      5,
+      7,
+      9
+    ],
+    "restores": [
+      4,
+      6,
+      8,
+      10
+    ],
+    "schedule": "restoring-packet-fan",
+    "source": {
+      "branches": 4,
+      "family": "residual-packet-fan",
+      "inputs": 5,
+      "nodes": [
+        {
+          "index": 0,
+          "op": "input"
+        },
+        {
+          "index": 1,
+          "op": "input"
+        },
+        {
+          "index": 2,
+          "op": "input"
+        },
+        {
+          "index": 3,
+          "op": "input"
+        },
+        {
+          "index": 4,
+          "op": "input"
+        },
+        {
+          "args": [
+            0,
+            1
+          ],
+          "op": "xor"
+        },
+        {
+          "args": [
+            0,
+            2
+          ],
+          "op": "xor"
+        },
+        {
+          "args": [
+            0,
+            3
+          ],
+          "op": "xor"
+        },
+        {
+          "args": [
+            0,
+            4
+          ],
+          "op": "xor"
+        }
+      ],
+      "outputs": [
+        5,
+        6,
+        7,
+        8,
+        0
+      ]
+    }
+  }
+}

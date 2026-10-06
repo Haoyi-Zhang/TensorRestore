@@ -1,0 +1,295 @@
+{
+  "budget_cells": 3,
+  "certificate": {
+    "flow": [],
+    "peak_ideal": [
+      0,
+      1
+    ],
+    "rescue": [
+      [],
+      [],
+      [],
+      [
+        4,
+        6
+      ],
+      [
+        7
+      ]
+    ]
+  },
+  "input": [
+    42
+  ],
+  "program": {
+    "buffers": [
+      {
+        "cells": 1,
+        "persistent": true
+      },
+      {
+        "cells": 1,
+        "persistent": true
+      },
+      {
+        "cells": 1,
+        "persistent": false
+      }
+    ],
+    "edges": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        8,
+        9
+      ]
+    ],
+    "events": [
+      {
+        "kind": "entry"
+      },
+      {
+        "buffer": 2,
+        "kind": "alloc"
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "args": [],
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "eval",
+        "literal": 13,
+        "op": "const",
+        "value": 1
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "args": [],
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "eval",
+        "literal": 13,
+        "op": "const",
+        "value": 1
+      },
+      {
+        "dst": [
+          2,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          0,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "dst": [
+          1,
+          0
+        ],
+        "kind": "copy",
+        "src": [
+          2,
+          0
+        ],
+        "value": 0
+      },
+      {
+        "buffer": 2,
+        "kind": "free"
+      },
+      {
+        "kind": "exit"
+      }
+    ],
+    "source": {
+      "inputs": 1,
+      "nodes": [
+        {
+          "index": 0,
+          "op": "input"
+        },
+        {
+          "literal": 13,
+          "op": "const"
+        }
+      ],
+      "outputs": [
+        0
+      ]
+    }
+  },
+  "replay": [
+    {
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "output": [
+        42
+      ],
+      "peak_cells": 3
+    },
+    {
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "output": [
+        42
+      ],
+      "peak_cells": 3
+    },
+    {
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        4,
+        7,
+        8,
+        9
+      ],
+      "output": [
+        42
+      ],
+      "peak_cells": 3
+    },
+    {
+      "order": [
+        0,
+        1,
+        2,
+        5,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "output": [
+        42
+      ],
+      "peak_cells": 3
+    },
+    {
+      "order": [
+        0,
+        1,
+        2,
+        5,
+        3,
+        6,
+        4,
+        7,
+        8,
+        9
+      ],
+      "output": [
+        42
+      ],
+      "peak_cells": 3
+    },
+    {
+      "order": [
+        0,
+        1,
+        2,
+        5,
+        6,
+        3,
+        4,
+        7,
+        8,
+        9
+      ],
+      "output": [
+        42
+      ],
+      "peak_cells": 3
+    }
+  ]
+}

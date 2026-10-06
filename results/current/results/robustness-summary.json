@@ -1,0 +1,44 @@
+{
+  "black_box_cli": {
+    "accepted_cases": 1,
+    "cleanly_rejected_cases": 3,
+    "tracebacks": 0
+  },
+  "heldout_provenance": {
+    "cases": 1152,
+    "event_count": 6,
+    "graphs": 96,
+    "linear_extension_replays": 11542,
+    "mismatches": 0,
+    "role": "frozen post-formulation implementation holdout; not workload breadth",
+    "seed": 8675309
+  },
+  "metamorphic": {
+    "checks": 4,
+    "mismatches": 0
+  },
+  "mutation_sensitivity": {
+    "all_supplied_restorers_legal": true,
+    "focused_missing_coverage_mutants": 1,
+    "mutant_acceptances": 1,
+    "original_rejection": "possible wrong last writer"
+  },
+  "packet_snapshot_semantics": {
+    "effect_order_mismatches": 0,
+    "initialized_effect_orders_checked": 2,
+    "sequential_commit_mutants_exposed": 1,
+    "sequential_mutant_output": [
+      19
+    ],
+    "snapshot_outputs": [
+      [
+        7
+      ],
+      [
+        7
+      ]
+    ],
+    "uninitialized_same_packet_source_rejected_by_producer": true,
+    "uninitialized_same_packet_source_rejected_by_snapshot_interpreter": true
+  }
+}

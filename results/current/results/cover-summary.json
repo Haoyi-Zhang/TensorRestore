@@ -1,0 +1,64 @@
+{
+  "by_universe_size": [
+    {
+      "mismatches": 0,
+      "set_systems": 1,
+      "universe_size": 1
+    },
+    {
+      "mismatches": 0,
+      "set_systems": 5,
+      "universe_size": 2
+    },
+    {
+      "mismatches": 0,
+      "set_systems": 101,
+      "universe_size": 3
+    },
+    {
+      "mismatches": 0,
+      "set_systems": 4505,
+      "universe_size": 4
+    }
+  ],
+  "mismatches": 0,
+  "nonminimal_greedy_witness": {
+    "greedy_choice": [
+      0,
+      1,
+      2
+    ],
+    "greedy_size": 3,
+    "optimum_choice": [
+      1,
+      2
+    ],
+    "optimum_size": 2,
+    "sets": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        4
+      ],
+      [
+        5
+      ]
+    ],
+    "universe_size": 6
+  },
+  "systems_checked": 4612
+}

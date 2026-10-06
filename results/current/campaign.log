@@ -1,0 +1,37 @@
+tests completed
+provenance completed
+memory completed
+cover completed
+stores completed
+robustness completed
+kernels completed
+packets completed
+{
+  "suite": "all",
+  "execution_model": {
+    "experiment_workers": 1,
+    "suite_scheduling": "serial in the main worker",
+    "cli_subprocesses": "serial only (public-CLI robustness checks)"
+  },
+  "resource_limits": {
+    "virtual_address_limit_bytes_per_process": 3221225472,
+    "cpu_limit_seconds_per_process": 240,
+    "single_cpu_affinity_applied": true,
+    "scope": "POSIX per-process limits on the worker, inherited by spawned CLI children; the CPU limit is not an aggregate process-tree limit."
+  },
+  "wall_seconds": 19.66966578399999,
+  "worker_cpu_seconds": 19.513977625,
+  "completed_cli_child_cpu_seconds": 0.145577,
+  "accounted_cpu_seconds": 19.659554625,
+  "main_process_peak_rss": 55448,
+  "main_process_peak_rss_unit": "KiB",
+  "measurement_scope": "process_time and RUSAGE_SELF describe only the main experiment worker. Completed serial child CPU is added from RUSAGE_CHILDREN. Child RSS is not reported or summed; the main-process peak is not a process-tree peak.",
+  "reference_environment": {
+    "os": "Linux",
+    "os_release": "6.17.0-1022-azure",
+    "python_implementation": "cpython",
+    "python_version": "3.13.15",
+    "resource_module_assumption": "POSIX resource semantics; Windows requires adaptation.",
+    "legacy_environment_for_preceding_frozen_runs": "unknown/not recoverable"
+  }
+}
