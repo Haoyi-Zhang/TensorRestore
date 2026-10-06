@@ -11,7 +11,7 @@
   "corrected_records": [
     {
       "citation_key": "distal22",
-      "correction": "DOI corrected to 10.1145/3527335."
+      "correction": "Current identity corrected 2026-10-07 to PLDI 2022, DOI 10.1145/3519939.3523437; earlier retained PACMPL/OOPSLA1 correction was erroneous."
     },
     {
       "citation_key": "scratchpad09",
@@ -779,16 +779,16 @@
       "access_date": "2026-09-21",
       "access_scope": "Official ACM metadata and author PDF checked; corrected DOI.",
       "citation_key": "distal22",
-      "evidence_url": "https://doi.org/10.1145/3527335",
-      "identifier": "10.1145/3527335",
+      "evidence_url": "https://doi.org/10.1145/3519939.3523437",
+      "identifier": "10.1145/3519939.3523437",
       "metadata_status": "verified",
       "resource_type": "scholarly paper",
       "supported_claim": "Affine/polyhedral scheduling, compiler infrastructure, or transformation-composition context.",
       "title": "DISTAL: The Distributed Tensor Algebra Compiler",
-      "venue": "Proceedings of the ACM on Programming Languages",
+      "venue": "Proceedings of the 43rd ACM SIGPLAN International Conference on Programming Language Design and Implementation",
       "verification_level": "metadata-and-relevance-checked",
-      "verification_note": "Official ACM metadata and author PDF checked; Proc. ACM Program. Lang. 6 (OOPSLA1), Article 90, DOI corrected from an unrelated record.",
-      "verification_source": "https://doi.org/10.1145/3527335",
+      "verification_note": "Metadata corrected 2026-10-07 against author-hosted ACM Reference Format and publisher-deposited metadata: PLDI 2022, pages 286--300, DOI 10.1145/3519939.3523437; prior retained PACMPL/OOPSLA1 identification was erroneous.",
+      "verification_source": "https://doi.org/10.1145/3519939.3523437",
       "year": 2022
     },
     {
