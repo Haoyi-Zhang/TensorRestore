@@ -30,7 +30,7 @@ Frozen result: 90,198 weight cases, zero mismatch.
 
 ## Minimum-witness reduction
 
-Enumerate every covering family of unique nonempty subsets for universes of size 1–4, with at most five sets. Compare brute-force minimum Set Cover size with the minimum accepted restoration witness under the reduction. Retain a fixed system where the producer-style maximum-new-coverage heuristic uses three writers although the optimum uses two.
+Enumerate every covering family of unique nonempty subsets for universes of size 1–4, with at most five sets. Compare brute-force minimum Set Cover size with the minimum accepted restoration witness under the reduction, including its explicit good initialization before every event. Initialization covers no bad writer and is omitted from minimum candidates because selecting it is redundant. The reduction preserves optimum and decision existence, not a bijection of redundantly padded witnesses. Retain a fixed system where the producer-style maximum-new-coverage heuristic uses three writers although the optimum uses two.
 
 Frozen result: 4,612 systems, zero optimum mismatch.
 
@@ -74,7 +74,7 @@ Use branch counts `2,3,4,5,6,7,8,12,16,24,32,48,64,96,128,192`. For each, compar
 5. one-cell final-value forwarding; and
 6. split effects outside the atom-preserving contract.
 
-Enumerate every unrestricted and repaired middle-region order through `k=5`; use exact formulas plus deterministic representative executions for larger `k`. The split constructor must retain every event identifier, restore, and edge and remove only scratch packet subeffects. For `k=2,3`, compare its complete event-order sets literally with the original 6 and 90 orders and replay all 96. Also exhaust every one/two-cell clobber/restore assignment for `k=2,3` and replay every legal order numerically. Remove each restore-to-final obligation in turn and replay a constructed numeric counterorder.
+Enumerate every unrestricted and repaired middle-region order through `k=5`; use exact formulas plus deterministic representative executions for larger `k`. The split constructor must retain every event identifier, restore, and edge and remove only scratch packet subeffects. For `k=2,3`, compare its complete event-order sets literally with the original 6 and 90 orders and replay all 96. Also exhaust every one/two-cell clobber/restore assignment for `k=2,3` and replay every legal order numerically. Weaken each restore-to-final edge to a restore-to-free edge in turn, preserving the lifetime and entry/exit requirements, and replay a constructed numeric counterorder. Require the trusted checker to reject for `possible wrong last writer` with every legal good predecessor supplied, and separately require producer rejection for `no restoring-writer cover`.
 
 Frozen result: 16 configurations, 122,879 target executions, 116,016 unrestricted orders, 71,225 repaired orders, 96 exact split-order replays with identical order sets, 82 layouts, 5,952 layout-order replays, 647 unsafe controls, and zero mismatch.
 

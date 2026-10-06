@@ -44,5 +44,6 @@
   "split_order_mismatches": 0,
   "split_small_order_sets_checked": 2,
   "two_cell_single_rescuer_acceptances": 28,
+  "unsafe_checker_coverage_rejections": 647,
   "unsafe_negative_controls": 647
 }

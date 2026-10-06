@@ -169,18 +169,22 @@ def _minimum_restoration_via_production(universe, family):
     elements = sorted(universe)
     bad_count = len(elements)
     good_count = len(family)
-    read = bad_count + good_count
+    # Explicit good initialization matches the written reduction. It precedes
+    # every event, cannot cover a bad writer, and cannot improve a minimum set.
+    read = 1 + bad_count + good_count
     pred = [0] * (read + 1)
-    index = {u: i for i, u in enumerate(elements)}
+    index = {u: i + 1 for i, u in enumerate(elements)}
+    for bad in range(1, 1 + bad_count):
+        pred[bad] = 1
     for j, subset in enumerate(family):
-        good = bad_count + j
-        pred[good] = sum(1 << index[u] for u in subset)
+        good = 1 + bad_count + j
+        pred[good] = 1 | sum(1 << index[u] for u in subset)
     pred[read] = (1 << read) - 1
-    writers = ([(i, 0) for i in range(bad_count)] +
-               [(bad_count + j, 1) for j in range(good_count)])
+    writers = ([(0, 1)] + [(i + 1, 0) for i in range(bad_count)] +
+               [(1 + bad_count + j, 1) for j in range(good_count)])
     for size in range(good_count + 1):
         for chosen_j in itertools.combinations(range(good_count), size):
-            chosen = [bad_count + j for j in chosen_j]
+            chosen = [1 + bad_count + j for j in chosen_j]
             try:
                 check_read_cover(tuple(pred), writers, read, 1, chosen)
                 return size, chosen_j

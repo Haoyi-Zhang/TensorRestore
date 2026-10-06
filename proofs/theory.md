@@ -89,12 +89,15 @@ cell and two tags.
 reachability relation. For hardness, reduce Set Cover. For every universe element
 \(e\), create a bad writer \(b_e\). For every set \(S_j\), create a good writer
 \(g_j\), add \(b_e<_P g_j\) exactly when \(e\in S_j\), and order every
-\(g_j\) before the final read \(r\). Add one good initialization before all bad
-writers; it supplies an initial correct value but cannot restore a later bad write.
+\(g_j\) before the final read \(r\). Add one good initialization before every
+event; it supplies an initial correct value but cannot restore a later bad write.
 Because the set family covers the universe, every \(b_e\) precedes \(r\). A chosen
 good writer \(g_j\) covers exactly the bad writers whose elements lie in \(S_j\).
-Thus restoration sets of size at most \(k\) correspond exactly to set covers of
-size at most \(k\). The construction is polynomial. QED.
+An initialization selected in a witness is redundant and may be dropped. Thus a
+restoration set of size at most \(k\) exists if and only if a set cover of size at
+most \(k\) exists. This preserves the decision problem and optimum; it is not a
+bijection of witnesses that may redundantly include initialization. The
+construction is polynomial. QED.
 
 The checker does not require minimality. The reference producer uses a deterministic
 maximum-new-coverage heuristic; the exact small-instance audit includes a case whose
@@ -233,10 +236,12 @@ valid cover contains all \(k\) restores. They suffice, hence the minimum is exac
 \(k\), and no single restorer can cover all bad writers.
 
 For (3), packet \(p_i\) is the unique writer of output \(y_i\), so deleting the
-whole packet loses that output. If the obligation \(q_i<_P f\) is removed, order
-all other packet/restore pairs first, then \(p_i\), then \(f\), and only then
-\(q_i\). The residual output receives \(y_i\), which differs from \(a\) for, for
-example, \(x_i=1\). This is a statement about the original shared target and fixed
+whole packet loses that output. Replace the obligation \(q_i<_P f\) by the weaker
+\(q_i<_P f_b\), where \(f_b\) frees the scratch buffer. This retains lifetime
+validity without forcing the restore before the final read. Order all other
+packet/restore pairs first, then \(p_i\), then \(f\), then \(q_i\), and finally
+free and exit. The residual output receives \(y_i\), which differs from \(a\)
+when \(x_i=1\). This is a statement about the original shared target and fixed
 final read, not a claim that a later interface rewrite can never make a restore
 dead.
 

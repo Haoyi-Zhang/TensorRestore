@@ -36,9 +36,18 @@ The representative four-branch case must be accepted with 14 events, four packet
 
 ## Frozen evidence
 
+The deterministic expectations include the current 39-test suite and direct
+checker rejection of all 647 lifetime-valid unsafe packet controls. The retained
+`results/tests.txt` and `results/run-summary.json` describe the earlier 36-test
+Linux run; they are historical logs, not measurements of the current test suite.
+An owned Windows/CPython 3.12.14 rerun of the reviewed suite functions recovered
+the same finite scientific counts. Only the unavailable POSIX `resource` import
+was excluded, and `run.main` was not invoked, so this does not reproduce its
+Linux CPU/RSS measurements or validate the unmodified POSIX entry point.
+
 | Check | Frozen result |
 |---|---:|
-| Unit tests | 36 passed |
+| Current unit tests | 39 passed (historical Linux run: 36) |
 | Exact tagged-read cases | 298,212; production predicate called on every case; zero mismatch |
 | Unsafe cases with replayed countertrace | 235,699 |
 | Exact maximum-closure cases | 90,198; zero mismatch |
@@ -54,12 +63,19 @@ The representative four-branch case must be accepted with 14 events, four packet
 | Split exact-order replays | 96 for `k=2,3`; identical original event-order sets |
 | Fixed-read recolorings / order replays | 82 / 5,952; zero mismatch |
 | One-cell / two-cell single-restorer acceptances | 0 / 28 |
-| Unsafe packet controls | 647; all rejected and numerically wrong |
+| Unsafe packet controls | 647; all lifetime-valid, checker coverage-rejected, producer-rejected, and numerically wrong |
 | Packet / restore indispensability checks | 647 / 647 |
 | Largest tensor / packet target | 716 / 390 events |
-| Full-project bibliography | 73 entries; all cited; audit PASS |
+| Full-project bibliography | 73 entries; all cited; metadata/closure audit passes |
 
 Counts are finite validation evidence, not production-workload breadth. The tensor suite is deliberately unfavorable to the new certificate: every conventional schedule is accepted by the one-restorer baseline.
+
+The bibliography script checks consistency with the supplied inventory and its
+recorded reading levels; it does not fetch papers or establish citation entailment.
+The prepared `Finite scientific checks` workflow runs from this flat artifact
+repository on Ubuntu 24.04, retains the comparison and acceptance fail gates,
+and uploads the isolated nonhidden `scientific-output/` directory even on step
+failure. Preparing this workflow is not evidence of a successful remote run.
 
 ## Contents
 

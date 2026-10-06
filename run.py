@@ -258,10 +258,24 @@ def packets(out):
             restore=unsafe['restores'][affected]
             unsafe['edges']=[edge for edge in unsafe['edges'] if edge!=[restore,final]]
             unsafe['edges'].append([restore,freed])
+            # Retain lifetime validity, then test the trusted acceptance path with
+            # every legal good predecessor. Rejection must be semantic coverage.
+            unsafe_state=structure(unsafe)
+            unsafe_rescue=[[w for w,tag in unsafe_state['writes'][loc]
+                            if tag==want and unsafe_state['pred'][r]>>w&1]
+                           for r,loc,want in unsafe_state['reads']]
+            try:
+                verify(unsafe,{'rescue':unsafe_rescue,'flow':[]},budget)
+            except Rejected as error:
+                if str(error)!='possible wrong last writer':
+                    raise AssertionError(('wrong unsafe-checker rejection',str(error)))
+            else:
+                raise AssertionError('trusted checker accepted unsafe packet fan')
             try:
                 produce(unsafe)
-            except Rejected:
-                pass
+            except Rejected as error:
+                if str(error)!='no restoring-writer cover':
+                    raise AssertionError(('wrong unsafe-producer rejection',str(error)))
             else:
                 raise AssertionError('unsafe packet fan accepted')
             bad_order=[0,1,2]
@@ -350,6 +364,7 @@ def packets(out):
              'exact_unrestricted_orders_enumerated':exact_orders_checked,
              'exact_repaired_orders_enumerated':repaired_orders_checked,
              'unsafe_negative_controls':negative_controls,'mismatches':0,'max_events':max_events,
+             'unsafe_checker_coverage_rejections':negative_controls,
              'fixed_read_layout_assignments_checked':layout_assignments_checked,
              'fixed_read_safe_layouts_checked':layout_safe,
              'fixed_read_layout_orders_replayed':layout_orders_replayed,

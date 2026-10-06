@@ -1,6 +1,6 @@
 import copy, unittest
 from itertools import product
-from refcert.checker import verify, Rejected, structure
+from refcert.checker import verify, Rejected, structure, check_read_cover
 from refcert.producer import produce, single_rescuer_accepts, maximum_closure
 from refcert.kernels import build, compile_schedule
 from refcert.packets import (build_residual_fan, compile_restoring_fan, compile_quarantine_fan,
@@ -303,5 +303,44 @@ class Certificates(unittest.TestCase):
             order += [q['packets'][i],q['restores'][i],2+2*3+1,2+2*3+2,2+2*3+3]
             got,_=execute(q,[19,2,3,5],order)
             self.assertNotEqual(got[-1],19)
+
+    def test_removed_restore_obligation_is_lifetime_valid_and_checker_rejected(self):
+        p=compile_restoring_fan(build_residual_fan(3))
+        final=next(i for i,e in enumerate(p['events']) if e.get('dst')==[1,3])
+        freed=next(i for i,e in enumerate(p['events']) if e.get('kind')=='free')
+        for affected,restore in enumerate(p['restores']):
+            q=copy.deepcopy(p)
+            q['edges'].remove([restore,final])
+            q['edges'].append([restore,freed])
+            state=structure(q)  # The control must satisfy entry/exit and lifetimes.
+            rescue=[[w for w,tag in state['writes'][loc]
+                     if tag==want and state['pred'][r]>>w&1]
+                    for r,loc,want in state['reads']]
+            with self.assertRaisesRegex(Rejected,'possible wrong last writer'):
+                verify(q,{'rescue':rescue,'flow':[]},state['persistent']+1)
+            order=[0,1,2]
+            for i in range(3):
+                if i!=affected:order += [q['packets'][i],q['restores'][i]]
+            order += [q['packets'][affected],final,restore,freed,len(q['events'])-1]
+            values=[19,0,0,0];values[affected+1]=1
+            self.assertNotEqual(execute(q,values,order)[0],source_values(q['source'],values))
+
+    def test_checker_rejects_same_packet_source_without_initialization(self):
+        p=packet_cross_read_program(initialized=False)
+        state=structure(p)
+        rescue=[[w for w,tag in state['writes'][loc]
+                 if tag==want and state['pred'][r]>>w&1]
+                for r,loc,want in state['reads']]
+        with self.assertRaisesRegex(Rejected,'required source unavailable before read'):
+            verify(p,{'rescue':rescue,'flow':[]},state['persistent']+1)
+
+    def test_set_cover_initialization_is_redundant_not_a_bijection(self):
+        # init < bad < good < read. Both [good] and [init, good] work;
+        # initialization alone does not cover the bad writer.
+        pred=[0,1,3,7];writers=[(0,1),(1,0),(2,1)]
+        self.assertEqual(check_read_cover(pred,writers,3,1,[2]),(2,1))
+        self.assertEqual(check_read_cover(pred,writers,3,1,[0,2]),(2,2))
+        with self.assertRaisesRegex(Rejected,'possible wrong last writer'):
+            check_read_cover(pred,writers,3,1,[0])
 
 if __name__=='__main__':unittest.main()
