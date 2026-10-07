@@ -9,11 +9,12 @@ def maximum_closure(weights, edges):
     for (u,v),cap in caps.items():
         residual[u,v]=cap; residual[v,u]=0
         adjacent[u].add(v); adjacent[v].add(u)
+    adjacent=tuple(tuple(sorted(neighbors)) for neighbors in adjacent)
     while True:
         parent={s:None}; queue=deque([s])
         while queue and t not in parent:
             u=queue.popleft()
-            for v in sorted(adjacent[u]):
+            for v in adjacent[u]:
                 if v not in parent and residual[u,v]>0:
                     parent[v]=u; queue.append(v)
         if t not in parent: break

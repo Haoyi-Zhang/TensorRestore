@@ -40,6 +40,7 @@ jobs:
           ulimit -t 240
           timeout --signal=TERM --kill-after=5s 360s bash -euo pipefail -c '
             python -B .github/scripts/check_repository.py 2>&1 | tee scientific-output/integrity.log
+            python -B tests/closure_regression.py 2>&1 | tee scientific-output/closure-regression.log
             python -B run.py --suite all --out scientific-output/results 2>&1 | tee scientific-output/campaign.log
             python -B compare.py results scientific-output/results 2>&1 | tee scientific-output/comparison.log
             python -B -m refcert check scientific-output/results/case-packet-fan-4.json 2>&1 | tee scientific-output/checker.log

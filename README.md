@@ -34,6 +34,19 @@ python build.py
 
 The representative four-branch case must be accepted with 14 events, four packet events, eight packet effects, 27 read obligations, and an exact/certified total peak of 11 abstract cells.
 
+The flow producer sorts its immutable adjacency once before augmentation, retaining
+the same ascending traversal and certificates. Focused file-free checks enumerate
+small ideals independently and exercise reverse residual arcs, signed weights,
+duplicate edges, consumer statistics, and checker rejections:
+
+```sh
+python -B tests/closure_regression.py
+```
+
+These six regressions run as a separate scientific-workflow step, so the retained
+39-test campaign summary and its exact comparison remain unchanged. No runtime
+improvement is measured or claimed.
+
 ## Frozen evidence
 
 The deterministic expectations include the current 39-test suite and direct
