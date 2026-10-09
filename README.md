@@ -88,7 +88,7 @@ recorded reading levels; it does not fetch papers or establish citation entailme
 The prepared `Finite scientific checks` workflow runs from this flat artifact
 repository on Ubuntu 24.04, retains the comparison and acceptance fail gates,
 and uploads the isolated nonhidden `scientific-output/` directory even on step
-failure. Preparing this workflow is not evidence of a successful remote run.
+failure.
 
 ## Contents
 
