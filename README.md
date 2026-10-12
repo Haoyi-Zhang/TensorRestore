@@ -112,3 +112,10 @@ failure.
 The checker is not a verified implementation. Producer and checker share schema/reachability code; exact execution, production-path exhaustive calls, holdout cases, mutation sensitivity, and clean reproduction reduce but do not remove that trust. The source constructors are bounded and hand-written. Packet atomicity is supplied by an external front end or target contract. Exact tags reject some numerically equivalent rewrites. Abstract cells are not RSS, cache occupancy, bank usage, or allocator bytes. No GPU, accelerator, production-compiler, physical-memory, throughput, or speedup claim is made.
 
 Substantive generative-model assistance was used in research formulation, literature examination, proof development, implementation, testing, analysis, and documentation. Accountable human authors must independently verify science, citations, authorship, originality, disclosure, and then-current venue rules before external use.
+## Vector figure reproduction
+
+The retained data can be rendered with `python scripts/plot_figures.py`.
+Native PDFs go to `figures/`; `--paper-figures ../paper/figures` copies identical
+assets into a full project's sibling paper. Figure-only dependencies, font
+discovery and portable fallbacks are documented in `scripts/README.md`.
+Certificate execution and raw scientific result files are unchanged.
