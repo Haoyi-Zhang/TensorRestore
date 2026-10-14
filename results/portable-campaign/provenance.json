@@ -1,0 +1,18 @@
+{
+  "origin": "Actual public-runner execution of reviewed owned finite scientific suites on Windows, not a fabricated POSIX/native run",
+  "normal_command": "python -B run.py --suite all --resource-backend portable --out <new-output>",
+  "optimized_command": "python -B -O run.py --suite all --resource-backend portable --out <new-output>",
+  "comparison": "Both normal and optimized match all eight retained deterministic summaries, identical seven case-file sets, and all non-timing columns of both CSVs; each mode compared against historical results and against the other mode.",
+  "unit_tests": 39,
+  "separate_regressions": {"closure": 6, "workflow": 4, "restoration": 4, "normal_and_optimized": "all pass"},
+  "normal_wall_seconds": 13.199172299995553,
+  "normal_worker_cpu_seconds": 12.9375,
+  "optimized_wall_seconds": 13.168186399998376,
+  "optimized_worker_cpu_seconds": 12.96875,
+  "rss": null,
+  "completed_child_cpu": null,
+  "total_accounted_cpu": null,
+  "posix_limits": null,
+  "scope": "Finite sequential Python model, authored tensor/fan constructors and modular interpreter. Neither native compiler, GPU, production workload nor external reproduction.",
+  "historical": "Original Linux timing/results files and earlier Windows suite-function scope remain untouched. Public runner is now executed directly, with explicit portable missing-measurement semantics."
+}

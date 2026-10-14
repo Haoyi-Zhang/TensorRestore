@@ -374,7 +374,52 @@ bound remains certified. Added predecessors can invalidate downward closure of a
 previous ideal, and the true maximum can decrease, so tightness is not reusable in
 general. QED.
 
-## 8. Boundaries of the result
+## 8. Greedy implementation equivalence and direct decision
+
+This is an implementation argument, not a new greedy optimization theorem.
+Let B be the remaining dangerous writers and define score(g,B) as the popcount
+of Pred(g) intersect B. Removing covered writers only decreases every score.
+Store candidates in a heap keyed by (-last_score, event_id). Every stored score
+is consequently an upper bound on its current score. Recompute the popped
+leader: if its new key is no greater than the next stored key, it beats every
+remaining candidate's upper bound with the same smallest-ID tie rule. Select it;
+otherwise reinsert it. Induction on selected writers gives exactly the eager
+greedy sequence. A positive selected score removes a writer; a zero best score
+correctly rejects an uncovered obligation. Between selections each stale bound
+can be refreshed once, so termination holds. With g candidates and s selections,
+at most O(g(s+1)) scores are evaluated in the worst case, with additional heap
+operations. General asymptotic speedup or minimum-cover optimality does not follow.
+
+On the shared k-branch fan, the final read has k+1 good candidates (initialization
+and k restores). Initial scores require k+1 intersections. The first restore
+removes both allocation's bottom tag and its own bad packet. Each of the other
+k candidates then needs one refresh, followed by k-1 selected-restorer rescoring
+calls: 2k popped scores, or 3k+1 intersections for this read. Each of k+1 output
+reads contributes two intersections, while clean immutable-input reads contribute
+none. The producer total is 5k+3, hence 963 at k=192, excluding schema, closure,
+heap comparisons, flow work, and checking. The eager entry producer records
+19,298 intersections on this identical complete program.
+
+The restoration existence decision does not require selecting a small witness.
+Union the predecessor sets of every good predecessor of the read, then require
+each dangerous bad writer to belong to that union. This is equivalent to the
+exact condition: membership supplies some good restorer; a restorer places the
+writer in the union. Thus NP-completeness of minimum-cardinality selection does
+not imply hardness of semantic decision. The all-good direct baseline shares
+the schema/reachability front end but independently implements this union test
+and a maximum-closure optimizer without supplied witnesses. It proves the same
+finite all-order tag and exact-peak property, trusting its optimizer rather than
+validating a supplied flow. It is not an independent front-end or mechanization.
+
+For n events and m distinct edges, topological bitset propagation costs
+O((n+m) ceil(n/w)) word operations plus adjacency sorting. The supplied read
+checker uses bitset unions and membership shifts, not explicit writer/restorer
+pair expansion. A conservative cost is O(ceil(n/w) sum_r(|W_c|+|G_r|)). Python
+integer shifts/OR/popcount are not constant-cost operations on unbounded bitsets.
+Schema and cell expansion, flow conservation, optional ideal checks, serialization,
+and producer preprocessing remain in the full measured pipeline.
+
+## 9. Boundaries of the result
 
 Theorems concern sequential linear extensions, exact source tags, fixed finite
 programs, whole-buffer abstract occupancy, and explicit atomic packet boundaries.

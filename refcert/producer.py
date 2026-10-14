@@ -1,5 +1,6 @@
 """Untrusted witness producer. A separate checker validates its output; structural routines are shared."""
 from collections import deque
+import heapq
 from .checker import structure, closure_network, Rejected
 
 def maximum_closure(weights, edges):
@@ -29,6 +30,34 @@ def maximum_closure(weights, edges):
     peak=sum(weights[u] for u in ideal)
     return flow,ideal,peak
 
+def greedy_cover(pred, bad, good):
+    """Same maximum-new-coverage choices and event-ID ties, with lazy rescoring.
+
+    Stored scores are upper bounds because the uncovered writer mask only shrinks.
+    A freshly scored heap leader can be selected once it is no worse than all
+    remaining stored bounds (including the smaller-ID tie rule). This is an
+    implementation optimization of greedy Set Cover, not a minimum-cover solver.
+    """
+    if not bad:
+        return []
+    heap = [(-(pred[g] & bad).bit_count(), g) for g in good]
+    heapq.heapify(heap)
+    chosen = []
+    while bad:
+        if not heap:
+            raise Rejected('no restoring-writer cover')
+        _, g = heapq.heappop(heap)
+        fresh = (-(pred[g] & bad).bit_count(), g)
+        if heap and fresh > heap[0]:
+            heapq.heappush(heap, fresh)
+            continue
+        if fresh[0] == 0:
+            raise Rejected('no restoring-writer cover')
+        chosen.append(g)
+        bad &= ~pred[g]
+    return chosen
+
+
 def produce(program):
     st=structure(program); pred=st['pred']; rescue=[]
     for r,loc,want in st['reads']:
@@ -36,12 +65,7 @@ def produce(program):
         bad=sum(1<<w for w,tag in writers if w!=r and tag!=want and not(pred[w]>>r&1))
         good=[g for g,tag in writers if tag==want and pred[r]>>g&1]
         if not good: raise Rejected('required source unavailable before read')
-        chosen=[]
-        while bad:
-            g=max(good,key=lambda x:((pred[x]&bad).bit_count(),-x),default=None)
-            if g is None or not(pred[g]&bad): raise Rejected('no restoring-writer cover')
-            chosen.append(g); bad &= ~pred[g]; good.remove(g)
-        rescue.append(chosen)
+        rescue.append(greedy_cover(pred,bad,good))
     flow,ideal,peak=maximum_closure(st['weights'],program['edges'])
     return {'rescue':rescue,'flow':flow,'peak_ideal':ideal},st['persistent']+peak
 

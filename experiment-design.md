@@ -82,6 +82,34 @@ Frozen result: 16 configurations, 122,879 target executions, 116,016 unrestricte
 
 There is no learned model, parameter fitting, benchmark selection by score, or statistical performance inference. The principal risk is that theorem examples and tests share construction assumptions. Exact complete small universes, a structurally different Set Cover encoding, a frozen larger-event holdout, representation metamorphisms, mutation sensitivity, unfavorable tensor results, and interface-changing counterbaselines reduce that risk. They do not establish production prevalence or real-world performance.
 
+## Same-information direct decisions and producer cost
+
+The added cost experiment is separate from all historical campaigns. Its direct
+baseline consumes exactly the same program and budget, shares schema, source
+operation, lifetime and reachability validation, and independently computes
+all-good predecessor unions and exact closure peaks without a supplied witness.
+It does not restrict reads to one restorer. Both paths decide the finite all-order
+tag/peak guarantee; the direct path trusts its optimizer whereas the certificate
+path checks a supplied feasible flow and optional ideal. No independently
+authored front end or native compiler is implied.
+
+Fixed instances are shared/quarantined fans at k=2,8,32,96,192 and folded
+pointwise/separable/matmul dimension-five sources with one or two lanes: 16
+configurations. All are authored constructors, not captured production schedules.
+Use one warm-up and 21 timed rounds rotating method order. Retain every program,
+input, order, output, witness, raw timing, compact witness byte size and source
+binding. Full pipeline includes production and its preprocessing, JSON encode/
+decode and checking with fresh preprocessing. Report direct and supplied-check
+costs separately. The normal run retains a 2.35--2.54 full/direct slowdown and
+1.10--1.17 supplied-check/direct slowdown; optimized execution retains the negative.
+Both direct routines are compared with independent exact traces/ideals through
+four events (9,042 reads and 3,447 weights) and 42 missing-order controls.
+Greedy choice equivalence is checked on all 4,612 small covering families,
+including the nonminimal 3-versus-2 instance. Intersection counts are work,
+not wall-clock speed: lazy scoring records 5k+3 on a shared fan, excluding all
+nonselection work. There is no production prevalence, physical memory, native
+Halide/GPU, speed advantage over direct decision, or novelty claim for lazy greedy.
+
 ## Resources and determinism
 
 The runner uses one experiment worker, serial suites, and serial public-CLI subprocesses; it uses no network, solver, GPU, model/API, private data, or external compute. On POSIX, the 3 GiB virtual-address and 240-second CPU guards are per process and inherited by children, not aggregate process-tree budgets. `process_time` and `RUSAGE_SELF` measure the worker; completed-child CPU comes from `RUSAGE_CHILDREN`; child RSS is not reported or summed. The reference run was Linux 6.18.44 with CPython 3.13.5; earlier frozen-run OS/Python details are unknown and not recoverable. Deterministic comparison excludes timing fields and compares eight scientific summaries, all case files, and every non-timing CSV field.

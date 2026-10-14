@@ -84,8 +84,10 @@ def program_fixtures():
 def checked_closure(module, weights, edges):
     flow, ideal, peak = module.maximum_closure(weights, edges)
     exact, ideals = ideal_peak(weights, edges)
-    assert peak == exact and tuple(ideal) in ideals
-    assert checker.check_flow(weights, edges, flow) == exact
+    if peak != exact or tuple(ideal) not in ideals:
+        raise AssertionError(('ideal maximum mismatch', weights, edges, peak, exact, ideal))
+    if checker.check_flow(weights, edges, flow) != exact:
+        raise AssertionError(('checked flow maximum mismatch', weights, edges))
     return flow, ideal, peak
 
 

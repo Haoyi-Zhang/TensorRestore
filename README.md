@@ -1,6 +1,6 @@
 # Refinement Certificates for User-Schedulable Tensor Programs
 
-This standalone artifact accompanies the anonymous internal article **Restoration Frontiers for Effect-Coupled Tensor Schedules under Bounded Memory**. It implements a finite event-DAG checker, an untrusted witness producer, exact bounded semantic oracles, a modular-arithmetic interpreter, bounded tensor constructors, robustness audits, and the effect-coupled residual-fan family.
+This standalone artifact accompanies **Restoration Frontiers for Effect-Coupled Tensor Schedules under Bounded Memory**. It implements a finite event-DAG checker, an untrusted witness producer, exact bounded semantic oracles, a modular-arithmetic interpreter, bounded tensor constructors, robustness audits, and the effect-coupled residual-fan family.
 
 ## Scientific scope
 
@@ -20,6 +20,24 @@ python compare.py results reproduced
 python -m refcert check results/case-packet-fan-4.json
 python tables.py --results results --out reproduced-tables
 ```
+
+On a platform without POSIX `resource`, explicitly choose:
+
+```sh
+python -B run.py --suite all --resource-backend portable --out reproduced
+python -B compare.py results reproduced
+python -B tests/closure_regression.py
+python -B tests/workflow_regression.py
+python -B tests/restoration_regression.py
+```
+
+Repeat with `-O` for optimized Python checks. The default POSIX guards remain
+enabled unless the portable backend is explicitly selected. Portable runs report
+unavailable limits, RSS, child CPU and aggregate accounted CPU as null, and
+unapplied affinity as false. Output directories must be new or empty, so an
+existing result tree cannot be silently overwritten. Normal and optimized
+Windows/CPython 3.12.14 full public-runner results are retained separately in
+`results/portable-campaign/normal/` and `results/portable-campaign/optimized/`.
 
 In the full project, also run:
 
@@ -45,7 +63,8 @@ python -B tests/closure_regression.py
 
 These six regressions run as a separate scientific-workflow step, so the retained
 39-test campaign summary and its exact comparison remain unchanged. No runtime
-improvement is measured or claimed.
+improvement is measured or claimed for adjacency sorting. Lazy greedy restoration
+scoring retains identical eager choices and ties; measured costs follow below.
 
 ## Frozen evidence
 
@@ -53,7 +72,7 @@ The deterministic expectations include the current 39-test suite and direct
 checker rejection of all 647 lifetime-valid unsafe packet controls. The retained
 `results/tests.txt` and `results/run-summary.json` describe the earlier 36-test
 Linux run; they are historical logs, not measurements of the current test suite.
-An owned Windows/CPython 3.12.14 rerun of the reviewed suite functions recovered
+An earlier owned Windows/CPython 3.12.14 rerun of the reviewed suite functions recovered
 the same finite scientific counts. Only the unavailable POSIX `resource` import
 was excluded, and `run.main` was not invoked, so this does not reproduce its
 Linux CPU/RSS measurements or validate the unmodified POSIX entry point.
@@ -79,9 +98,42 @@ Linux CPU/RSS measurements or validate the unmodified POSIX entry point.
 | Unsafe packet controls | 647; all lifetime-valid, checker coverage-rejected, producer-rejected, and numerically wrong |
 | Packet / restore indispensability checks | 647 / 647 |
 | Largest tensor / packet target | 716 / 390 events |
-| Full-project bibliography | 73 entries; all cited; metadata/closure audit passes |
+| Full-project bibliography | 74 entries; all cited; includes classical accelerated-greedy attribution |
 
 Counts are finite validation evidence, not production-workload breadth. The tensor suite is deliberately unfavorable to the new certificate: every conventional schedule is accepted by the one-restorer baseline.
+
+## Same-information full costs
+
+`experiments/certificate_cost.py` compares an exact direct all-good read/peak
+decision with the full producer/JSON/checker pipeline and supplied checking.
+The baseline shares schema and reachability parsing but independently codes the
+read-union test and peak optimizer; it is not independent human or front-end
+validation. All paths receive the same source, event DAG, budget and all-order
+exact-tag guarantee. Sixteen authored finite constructors and 42 missing-order
+controls are not native production tensor workloads. Exact direct controls cover
+9,042 read cases and 3,447 weight cases through four events with zero disagreement.
+
+```sh
+python -B experiments/certificate_cost.py --repeats 21 --out cost-reproduced \
+  --eager-producer results/certificate-cost/eager-producer.py
+python -B experiments/selection_work.py --out selection-work.json \
+  --eager-producer results/certificate-cost/eager-producer.py
+python -B experiments/cost_table.py \
+  --measurements results/certificate-cost/normal/measurements.json --out cost-table.tex
+```
+
+The retained entry producer is byte-identical to the original reviewed source.
+Raw inputs, programs, orders, outputs, witnesses, timings and source bindings are
+in `results/certificate-cost/{normal,optimized}/measurements.json`. Full median
+cost at 192 fan branches changes from 7.776 to 6.127 ms, while the two-branch case
+changes from 0.129 to 0.130 ms. Across all 16 normal-mode instances the full lazy
+pipeline is **2.35--2.54 times slower** than direct decision; supplied checking is
+**1.10--1.17 times slower**. No same-information decision speed advantage is
+claimed. The 19,298-to-963 candidate-intersection reduction excludes schema,
+heap comparisons, closure flow, JSON and checker costs. Lazy scoring is classical
+accelerated greedy, not a new minimum-cover algorithm. Historical result bytes
+remain intact; the 234/234 one-restorer tensor acceptance and all escaping packet
+baselines remain negative evidence for wider claims.
 
 The bibliography script checks consistency with the supplied inventory and its
 recorded reading levels; it does not fetch papers or establish citation entailment.
@@ -111,7 +163,7 @@ failure.
 
 The checker is not a verified implementation. Producer and checker share schema/reachability code; exact execution, production-path exhaustive calls, holdout cases, mutation sensitivity, and clean reproduction reduce but do not remove that trust. The source constructors are bounded and hand-written. Packet atomicity is supplied by an external front end or target contract. Exact tags reject some numerically equivalent rewrites. Abstract cells are not RSS, cache occupancy, bank usage, or allocator bytes. No GPU, accelerator, production-compiler, physical-memory, throughput, or speedup claim is made.
 
-Substantive generative-model assistance was used in research formulation, literature examination, proof development, implementation, testing, analysis, and documentation. Accountable human authors must independently verify science, citations, authorship, originality, disclosure, and then-current venue rules before external use.
+Substantive generative-model assistance was used in research formulation, literature examination, proof development, implementation, testing, analysis, and documentation.
 ## Vector figure reproduction
 
 The retained data can be rendered with `python scripts/plot_figures.py`.

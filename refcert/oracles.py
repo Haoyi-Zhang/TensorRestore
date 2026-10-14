@@ -339,7 +339,8 @@ def diagnostic_dead_stores():
                 seen[event].add(last)
             else:
                 last = event
-    assert seen[2] == {-1, 0, 1} and seen[5] == {3, 4}
+    if seen[2] != {-1, 0, 1} or seen[5] != {3, 4}:
+        raise AssertionError(('six-event observable-writer mismatch', seen))
     return {'exhaustive': rows,
             'joint_erasure_counterexample': joint_counterexample,
             'six_event_caution': {

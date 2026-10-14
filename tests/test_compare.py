@@ -59,7 +59,8 @@ class DeterministicComparison(unittest.TestCase):
             with self.assertRaisesRegex(AssertionError,'case-example.json'):
                 compare_directories(left,right)
             (right/'case-example.json').write_text((left/'case-example.json').read_text(),encoding='utf-8')
-            rows=list(csv.DictReader((right/'kernels.csv').open(newline='',encoding='utf-8')))
+            with (right/'kernels.csv').open(newline='',encoding='utf-8') as stream:
+                rows=list(csv.DictReader(stream))
             rows[0]['value']='10'
             with (right/'kernels.csv').open('w',newline='',encoding='utf-8') as stream:
                 writer=csv.DictWriter(stream,fieldnames=rows[0].keys());writer.writeheader();writer.writerows(rows)

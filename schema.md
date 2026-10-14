@@ -32,6 +32,16 @@ Optional `certificate.peak_ideal` is a duplicate-free list of events closed unde
 
 Adding only schedule edges preserves the core lists and old flow, with implicit zero flow on new arcs. It need not preserve the ideal. Source changes, layout changes, deleted edges, or buffer-size changes require fresh checking and are not covered by the reuse theorem.
 
+## Runner preservation and measurement
+
+`run.py` defaults to POSIX resource guards. On Windows the user must explicitly
+select `--resource-backend portable`; scientific acceptance is unchanged, but
+POSIX limits, peak RSS, completed-child CPU and total accounted CPU are null.
+Worker `process_time` and wall time remain measured. The runner refuses a
+nonempty output directory. Comparison requires identical `case-*.json` filename
+sets as well as summary and non-timing CSV equality. Optimized Python retains
+explicit oracle/closure fail gates rather than removable bare assertions.
+
 ## Admission is not a performance theorem
 
 The finite mathematical statements are not restricted to the implementation's numerical admission limits. Conversely, acceptance of a size within the schema is not a measured worst-case runtime or process-memory guarantee. The largest frozen tensor-kernel graph has 716 events; the largest effect-coupled packet graph has 390 events and 384 packet subeffects. The runner's CPU/address-space limits are operational guards, separate from the abstract occupancy certificate. They are POSIX per-process limits inherited by serial CLI children, not aggregate process-tree limits; reported `process_time`/`RUSAGE_SELF` values cover the main worker, while completed-child CPU is recorded separately and child RSS is not reported or summed.

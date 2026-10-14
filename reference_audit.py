@@ -13,6 +13,7 @@ import csv
 import json
 import re
 from collections import Counter
+from datetime import date
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
 
@@ -197,8 +198,12 @@ def main() -> None:
             errors.append(f"{key}: identifier is neither DOI nor https URL: {identifier!r}")
         if row.get("metadata_status") != "verified":
             errors.append(f"{key}: metadata_status must be verified")
-        if row.get("access_date") != "2026-09-21":
-            errors.append(f"{key}: unexpected access_date {row.get('access_date')!r}")
+        try:
+            recorded_date = row.get("access_date", "")
+            if date.fromisoformat(recorded_date).isoformat() != recorded_date:
+                raise ValueError('noncanonical ISO date')
+        except ValueError:
+            errors.append(f"{key}: invalid ISO access_date {row.get('access_date')!r}")
         ext = external.get(key)
         if ext:
             ext_url = ext.get("scholarly_or_official_url", "").strip()

@@ -1,0 +1,38 @@
+[
+  {
+    "events": 2,
+    "linear_extensions": 3,
+    "mismatches": 0,
+    "posets": 2,
+    "production_predicate_calls": 24,
+    "tagged_read_cases": 24,
+    "unsafe_cases_with_replayed_countertrace": 14
+  },
+  {
+    "events": 3,
+    "linear_extensions": 20,
+    "mismatches": 0,
+    "posets": 7,
+    "production_predicate_calls": 378,
+    "tagged_read_cases": 378,
+    "unsafe_cases_with_replayed_countertrace": 251
+  },
+  {
+    "events": 4,
+    "linear_extensions": 260,
+    "mismatches": 0,
+    "posets": 40,
+    "production_predicate_calls": 8640,
+    "tagged_read_cases": 8640,
+    "unsafe_cases_with_replayed_countertrace": 6344
+  },
+  {
+    "events": 5,
+    "linear_extensions": 6105,
+    "mismatches": 0,
+    "posets": 357,
+    "production_predicate_calls": 289170,
+    "tagged_read_cases": 289170,
+    "unsafe_cases_with_replayed_countertrace": 229090
+  }
+]

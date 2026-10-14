@@ -1,0 +1,32 @@
+{
+  "core_certificate_reuses": 234,
+  "diamond_linearizations": 6,
+  "dimensions": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "families": 8,
+  "input_seed_rule": "271828 + input_count",
+  "interpretation": "Hand-written bounded mathematical constructors; not production compiler integration or workload breadth.",
+  "max_events": 716,
+  "mismatches": 0,
+  "order_seeds": [
+    -1,
+    -2,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "schedule_configurations": 234,
+  "single_rescuer_accepted_configurations": 234,
+  "source_instances": 40,
+  "source_reference_comparisons": 200,
+  "target_executions": 9360,
+  "unsafe_diamond_linearizations": 10
+}

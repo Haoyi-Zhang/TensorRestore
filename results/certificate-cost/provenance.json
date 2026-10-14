@@ -1,0 +1,17 @@
+{
+  "measurement_origin": "Owned authored finite tensor/fan constructors, not imported production histories or native tensor compiler output",
+  "host": {"os": "Windows 11 build 28000", "python": "CPython 3.12.14", "cpu": "12th Gen Intel Core i7-12700KF", "physical_cores": 12, "logical_processors": 20, "affinity_applied": false, "experiment_workers": 1},
+  "entry_producer_sha256": "654e219bde687c4ae521b4b220f90d79c545f98b131e2d4896203f18edff4444",
+  "retained_baseline_source": "eager-producer.py",
+  "baseline_license": "Same project MIT license; no external executable implementation imported",
+  "normal_command": "python -B experiments/certificate_cost.py --repeats 21 --out <new-output> --eager-producer results/certificate-cost/eager-producer.py",
+  "optimized_command": "python -B -O experiments/certificate_cost.py --repeats 21 --out <new-output> --eager-producer results/certificate-cost/eager-producer.py",
+  "selection_command": "python -B experiments/selection_work.py --out <new-file> --eager-producer results/certificate-cost/eager-producer.py; repeat with -O",
+  "timer": "perf_counter_ns; individual raw samples and source bindings in measurements.json",
+  "raw_input_output_scope": "Each of 16 report records contains full program/source/events/edges/buffers, input, one actual legal order, output, measured abstract peak, certificate, budget, byte size and 21 samples per method. Each of 42 negative records contains the actual owned missing-order program and both coverage rejection outcomes.",
+  "guarantee_match": "Identical source, target DAG and budget; all-order exact tags and exact whole-buffer peak. No one-restorer restriction in direct baseline.",
+  "shared_trust": "Schema, lifetime, operation correspondence and reachability front end are shared. Direct reads and exact peak arithmetic are separately implemented, not independently authored/reviewed. Direct trusts optimizer; supplied checker validates a feasible witness.",
+  "unexecuted": ["native Halide or other tensor compiler lowering", "GPU or accelerator execution", "physical/process-tree memory measurement", "production benefit/prevalence", "POSIX guarded runner on this Windows host", "public CI or submission"],
+  "historical_results": "All pre-existing results and evidence files retained byte-for-byte; new scientific runs are separate.",
+  "source_reading": "Minoux publisher metadata and abstract only, not the subscription chapter. New local lazy tie-preserving derivation is in proofs/theory.md Section 8. No novelty claimed for accelerated greedy."
+}

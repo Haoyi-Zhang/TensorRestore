@@ -6,7 +6,11 @@ Usage: python run.py --suite all --out reproduced
 Suites run serially in the main worker.  The robustness suite launches only
 serial public-CLI subprocesses. Results contain no release/hash manifests.
 """
-import argparse, copy, csv, json, os, platform, random, resource, sys, time, unittest
+import argparse, copy, csv, json, os, platform, random, sys, time, unittest
+try:
+    import resource
+except ImportError:
+    resource = None
 from itertools import product
 from pathlib import Path
 from refcert.checker import structure, verify
@@ -27,9 +31,14 @@ ROOT=Path(__file__).resolve().parent
 
 def dump(path,value):path.write_text(json.dumps(value,indent=2,sort_keys=True)+'\n',encoding='utf-8')
 
-def completed_child_cpu_seconds():
+def completed_child_cpu_seconds(backend='posix'):
+    if backend == 'portable':
+        return None
     usage=resource.getrusage(resource.RUSAGE_CHILDREN)
     return usage.ru_utime+usage.ru_stime
+
+def child_delta(end,start):
+    return None if end is None or start is None else end-start
 
 def linearization(p,seed):
     rng=random.Random(seed); n=len(p['events']); succ=[set() for _ in range(n)];degree=[0]*n
@@ -400,16 +409,25 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--suite',choices=('all','tests','provenance','memory','cover','stores','robustness','kernels','packets'),default='all')
     parser.add_argument('--out',type=Path,default=Path('reproduced'))
-    args=parser.parse_args();out=args.out.resolve();out.mkdir(parents=True,exist_ok=True)
+    parser.add_argument('--resource-backend',choices=('posix','portable'),default='posix',
+                        help='POSIX guards remain default; portable reports unavailable limits/RSS/child CPU as null')
+    args=parser.parse_args()
+    if args.resource_backend == 'posix' and resource is None:
+        parser.error('POSIX resource module unavailable; explicitly choose --resource-backend portable')
+    out=args.out.resolve()
+    if out.exists() and (not out.is_dir() or any(out.iterdir())):
+        parser.error('output directory must be new or empty; retained evidence will not be overwritten')
+    out.mkdir(parents=True,exist_ok=True)
     # POSIX per-process guards. Serial CLI subprocesses inherit these limits; RLIMIT_CPU
     # is not an aggregate process-tree budget.
     address_limit=3*1024**3
-    if hasattr(resource,'RLIMIT_AS'):resource.setrlimit(resource.RLIMIT_AS,(address_limit,address_limit))
-    resource.setrlimit(resource.RLIMIT_CPU,(240,240))
+    posix=args.resource_backend=='posix'
+    if posix and hasattr(resource,'RLIMIT_AS'):resource.setrlimit(resource.RLIMIT_AS,(address_limit,address_limit))
+    if posix:resource.setrlimit(resource.RLIMIT_CPU,(240,240))
     affinity_applied=False
-    if hasattr(os,'sched_getaffinity'):
+    if posix and hasattr(os,'sched_getaffinity'):
         os.sched_setaffinity(0,{min(os.sched_getaffinity(0))});affinity_applied=True
-    start=time.perf_counter();worker_cpu=time.process_time();child_cpu=completed_child_cpu_seconds()
+    start=time.perf_counter();worker_cpu=time.process_time();child_cpu=completed_child_cpu_seconds(args.resource_backend)
     suite_data={};timing={}
     tasks={'tests':run_tests,'provenance':lambda o:provenance_oracle(),'memory':lambda o:memory_oracle(),
            'cover':lambda o:restoration_set_cover_oracle(),
@@ -417,16 +435,16 @@ def main():
            'robustness':lambda o:robustness_audit(),'kernels':kernels,'packets':packets}
     for name,fn in tasks.items():
         if args.suite not in ('all',name):continue
-        t=time.perf_counter();c=time.process_time();cc=completed_child_cpu_seconds()
+        t=time.perf_counter();c=time.process_time();cc=completed_child_cpu_seconds(args.resource_backend)
         suite_data[name]=fn(out)
         timing[name]={'wall_seconds':time.perf_counter()-t,
                       'worker_cpu_seconds':time.process_time()-c,
-                      'completed_cli_child_cpu_seconds':completed_child_cpu_seconds()-cc}
+                      'completed_cli_child_cpu_seconds':child_delta(completed_child_cpu_seconds(args.resource_backend),cc)}
         dump(out/f'{name}-summary.json',suite_data[name]);print(name,'completed',flush=True)
     worker_used=time.process_time()-worker_cpu
-    child_used=completed_child_cpu_seconds()-child_cpu
+    child_used=child_delta(completed_child_cpu_seconds(args.resource_backend),child_cpu)
     system=platform.system()
-    rss_unit='KiB' if system=='Linux' else ('bytes' if system=='Darwin' else 'platform-defined')
+    rss_unit=('KiB' if system=='Linux' else ('bytes' if system=='Darwin' else 'platform-defined')) if posix else None
     report={
         'suite':args.suite,
         'execution_model':{
@@ -435,28 +453,32 @@ def main():
             'cli_subprocesses':'serial only (public-CLI robustness checks)',
         },
         'resource_limits':{
-            'virtual_address_limit_bytes_per_process':address_limit if hasattr(resource,'RLIMIT_AS') else None,
-            'cpu_limit_seconds_per_process':240,
+            'backend':args.resource_backend,
+            'virtual_address_limit_bytes_per_process':address_limit if posix and hasattr(resource,'RLIMIT_AS') else None,
+            'cpu_limit_seconds_per_process':240 if posix else None,
             'single_cpu_affinity_applied':affinity_applied,
             'scope':('POSIX per-process limits on the worker, inherited by spawned CLI children; '
-                     'the CPU limit is not an aggregate process-tree limit.'),
+                     'the CPU limit is not an aggregate process-tree limit.') if posix else
+                    'Portable execution: no POSIX resource guards or affinity applied.',
         },
         'wall_seconds':time.perf_counter()-start,
         'worker_cpu_seconds':worker_used,
         'completed_cli_child_cpu_seconds':child_used,
-        'accounted_cpu_seconds':worker_used+child_used,
-        'main_process_peak_rss':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+        'accounted_cpu_seconds':worker_used+child_used if child_used is not None else None,
+        'main_process_peak_rss':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss if posix else None,
         'main_process_peak_rss_unit':rss_unit,
         'measurement_scope':(
             'process_time and RUSAGE_SELF describe only the main experiment worker. '
             'Completed serial child CPU is added from RUSAGE_CHILDREN. Child RSS is '
-            'not reported or summed; the main-process peak is not a process-tree peak.'),
+            'not reported or summed; the main-process peak is not a process-tree peak.') if posix else
+            'Only worker process_time and wall time measured. Child CPU, accounted CPU, RSS and POSIX guards unavailable; null is not zero.',
         'reference_environment':{
             'os':system,
             'os_release':platform.release(),
             'python_implementation':sys.implementation.name,
             'python_version':platform.python_version(),
-            'resource_module_assumption':'POSIX resource semantics; Windows requires adaptation.',
+            'resource_module_assumption':'POSIX resource semantics' if posix else 'explicit portable backend without resource module',
+            'optimization_level':sys.flags.optimize,
             'legacy_environment_for_preceding_frozen_runs':'unknown/not recoverable',
         },
         'timing':timing,

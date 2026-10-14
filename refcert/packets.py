@@ -1,4 +1,4 @@
-"""Compiler-derived atomic-packet fan used to test effect-coupled restoration.
+"""Owned bounded atomic-packet fan constructor for effect-coupled restoration.
 
 The source computes k independent tensor elements y_i = anchor XOR x_i and returns
 both y and the residual anchor. Each scheduled packet writes y_i to its output and,

@@ -38,6 +38,11 @@ def compare_directories(left, right):
     for name in SUMMARY_FILES:
         if load(left / name) != load(right / name):
             raise AssertionError(name)
+    left_cases = {path.name for path in left.glob('case-*.json')}
+    right_cases = {path.name for path in right.glob('case-*.json')}
+    if left_cases != right_cases:
+        raise AssertionError(f'case file set differs: missing={sorted(left_cases-right_cases)}, '
+                             f'extra={sorted(right_cases-left_cases)}')
     for path in sorted(left.glob('case-*.json')):
         peer = right / path.name
         if not peer.exists() or load(path) != load(peer):

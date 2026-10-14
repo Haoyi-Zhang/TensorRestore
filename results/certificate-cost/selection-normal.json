@@ -1,0 +1,37 @@
+{
+  "origin": "owned authored residual-fan constructors",
+  "optimization_level": 0,
+  "count_scope": "pred[good] & remaining_bad in all producer read obligations; excludes schema/heap/closure/checker/JSON",
+  "rows": [
+    {
+      "branches": 2,
+      "eager_intersections": 13,
+      "lazy_intersections": 13,
+      "certificates_and_bounds_identical": true
+    },
+    {
+      "branches": 8,
+      "eager_intersections": 70,
+      "lazy_intersections": 43,
+      "certificates_and_bounds_identical": true
+    },
+    {
+      "branches": 32,
+      "eager_intersections": 658,
+      "lazy_intersections": 163,
+      "certificates_and_bounds_identical": true
+    },
+    {
+      "branches": 96,
+      "eager_intersections": 5042,
+      "lazy_intersections": 483,
+      "certificates_and_bounds_identical": true
+    },
+    {
+      "branches": 192,
+      "eager_intersections": 19298,
+      "lazy_intersections": 963,
+      "certificates_and_bounds_identical": true
+    }
+  ]
+}
