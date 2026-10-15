@@ -4,8 +4,12 @@ import argparse
 import csv
 import json
 import shutil
-from fractions import Fraction
 from pathlib import Path
+
+if __package__:
+    from .packet_plot_data import checked_packet_data
+else:
+    from packet_plot_data import checked_packet_data
 
 import matplotlib
 matplotlib.use("Agg")
@@ -124,7 +128,6 @@ def configure_fonts(font_dir, temporary):
                       "temporary_format": "TrueType; original hmtx retained"}))
 
 def main():
-    import math
     import tempfile
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results", type=Path, default=ROOT / "results")
@@ -133,19 +136,7 @@ def main():
     parser.add_argument("--font-dir", type=Path)
     args = parser.parse_args()
     rows = read_rows(args.results / "packets.csv")
-    ks = [int(row["branches"]) for row in rows]
-    # Same decimal rendering as tables.py and the original packet-orders.dat.
-    percentages = [float(format(100 * float(row["repair_retained_fraction"]),
-                                ".12g")) for row in rows]
-    for row in rows:
-        k = int(row["branches"])
-        unrestricted = math.factorial(2 * k) // 2**k
-        repaired = math.factorial(k - 1) * sum(
-            math.factorial(k + m) // (2**m * math.factorial(m))
-            for m in range(k))
-        if (int(row["unrestricted_orders"]) != unrestricted
-                or int(row["repaired_orders"]) != repaired):
-            raise ValueError("Recorded order counts disagree with manuscript formulas.")
+    ks, percentages = checked_packet_data(rows)
     # FreeType can retain open font handles in its render cache on Windows.
     with tempfile.TemporaryDirectory(prefix="libertine-plot-",
                                      ignore_cleanup_errors=True) as temporary:
