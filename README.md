@@ -168,7 +168,6 @@ failure.
 
 The checker is not a verified implementation. Producer and checker share schema/reachability code; exact execution, production-path exhaustive calls, holdout cases, mutation sensitivity, and clean reproduction reduce but do not remove that trust. The source constructors are bounded and hand-written. Packet atomicity is supplied by an external front end or target contract. Exact tags reject some numerically equivalent rewrites. Abstract cells are not RSS, cache occupancy, bank usage, or allocator bytes. No GPU, accelerator, production-compiler, physical-memory, throughput, or speedup claim is made.
 
-Substantive generative-model assistance was used in research formulation, literature examination, proof development, implementation, testing, analysis, and documentation.
 ## Vector figure reproduction
 
 The retained data can be rendered with `python scripts/plot_figures.py`.
