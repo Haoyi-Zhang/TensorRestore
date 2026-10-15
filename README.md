@@ -12,6 +12,10 @@ The packet comparison is conditional. In the **fixed-final-read, atom-preserving
 
 ## Reproduce
 
+Certificate execution and the test suite use only the Python standard library;
+the retained portable runs used CPython 3.12.14. Plotting has separate optional
+dependencies in `scripts/README.md`.
+
 From this directory:
 
 ```sh
@@ -68,7 +72,8 @@ scoring retains identical eager choices and ties; measured costs follow below.
 
 ## Frozen evidence
 
-The deterministic expectations include the current 39-test suite and direct
+The deterministic expectations include the current 43-test suite (39 before
+the four plot-input regressions) and direct
 checker rejection of all 647 lifetime-valid unsafe packet controls. The retained
 `results/tests.txt` and `results/run-summary.json` describe the earlier 36-test
 Linux run; they are historical logs, not measurements of the current test suite.
@@ -79,7 +84,7 @@ Linux CPU/RSS measurements or validate the unmodified POSIX entry point.
 
 | Check | Frozen result |
 |---|---:|
-| Current unit tests | 39 passed (historical Linux run: 36) |
+| Current unit tests | 43 passed (historical Linux run: 36) |
 | Exact tagged-read cases | 298,212; production predicate called on every case; zero mismatch |
 | Unsafe cases with replayed countertrace | 235,699 |
 | Exact maximum-closure cases | 90,198; zero mismatch |
