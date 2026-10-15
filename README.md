@@ -171,3 +171,8 @@ Native PDFs go to `figures/`; `--paper-figures ../paper/figures` copies identica
 assets into a full project's sibling paper. Figure-only dependencies, font
 discovery and portable fallbacks are documented in `scripts/README.md`.
 Certificate execution and raw scientific result files are unchanged.
+
+The 43-method standard-library suite includes four numeric-plot input regressions.
+The comparison baseline in `results/tests-summary.json` describes this current
+suite; `tests.json` and `run-summary.json` retain their recorded executions and
+timing measurements.
