@@ -277,7 +277,7 @@ def main() -> None:
                 errors.append(f"{key}: title mismatch: {bib_title!r} != {inv_title!r}")
             if fields.get("year", "").strip() != row.get("year", "").strip():
                 errors.append(f"{key}: year mismatch")
-            venue = fields.get("journal", fields.get("booktitle", fields.get("archiveprefix", "")))
+            venue = fields.get("journal", fields.get("booktitle", fields.get("archiveprefix", fields.get("institution", ""))))
             if normalize_text(venue) != normalize_text(row.get("venue", "")):
                 errors.append(f"{key}: venue mismatch")
             identifier = fields.get("doi", fields.get("url", "")).strip()

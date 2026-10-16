@@ -712,19 +712,19 @@
       "year": 2012
     },
     {
-      "access_date": "2026-09-21",
-      "access_scope": "Bibliographic metadata and relevance screen; used as contextual citation, not by itself as an exhaustive novelty or subsumption proof.",
+      "access_date": "2026-10-16",
+      "access_scope": "Archived report title page and coauthor publication citation identify Technical Report 08-897; corrected the publication type and removed the unsupported Supercomputing DOI. Full-report reading is not asserted.",
       "citation_key": "chill08",
-      "evidence_url": "https://doi.org/10.1109/SC.2008.5213920",
-      "identifier": "10.1109/SC.2008.5213920",
+      "evidence_url": "https://citeseerx.ist.psu.edu/document?doi=6a4620589f63f3385707d2d590f7b7dc8ee4d74f",
+      "identifier": "https://citeseerx.ist.psu.edu/document?doi=6a4620589f63f3385707d2d590f7b7dc8ee4d74f",
       "metadata_status": "verified",
-      "resource_type": "scholarly paper",
+      "resource_type": "scholarly technical report",
       "supported_claim": "Affine/polyhedral scheduling, compiler infrastructure, or transformation-composition context.",
       "title": "CHiLL: A Framework for Composing High-Level Loop Transformations",
-      "venue": "Proceedings of the 2008 ACM/IEEE Conference on Supercomputing",
+      "venue": "Department of Computer Science, University of Southern California",
       "verification_level": "metadata-and-relevance-checked",
-      "verification_note": "Bibliographic metadata and relevance screen; used as contextual citation, not by itself as an exhaustive novelty or subsumption proof.",
-      "verification_source": "https://doi.org/10.1109/SC.2008.5213920",
+      "verification_note": "Archived report title page and coauthor publication citation identify Technical Report 08-897; corrected the publication type and removed the unsupported Supercomputing DOI. Full-report reading is not asserted.",
+      "verification_source": "https://citeseerx.ist.psu.edu/document?doi=6a4620589f63f3385707d2d590f7b7dc8ee4d74f",
       "year": 2008
     },
     {

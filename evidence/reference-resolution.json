@@ -345,10 +345,10 @@
       "verification_level": "metadata-and-relevance-checked"
     },
     {
-      "access_date": "2026-09-21",
+      "access_date": "2026-10-16",
       "citation_key": "chill08",
-      "evidence_url": "https://doi.org/10.1109/SC.2008.5213920",
-      "identifier": "10.1109/SC.2008.5213920",
+      "evidence_url": "https://citeseerx.ist.psu.edu/document?doi=6a4620589f63f3385707d2d590f7b7dc8ee4d74f",
+      "identifier": "https://citeseerx.ist.psu.edu/document?doi=6a4620589f63f3385707d2d590f7b7dc8ee4d74f",
       "metadata_status": "verified",
       "verification_level": "metadata-and-relevance-checked"
     },
