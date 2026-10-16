@@ -1,4 +1,4 @@
-# Refinement Certificates for User-Schedulable Tensor Programs
+# Restoration Frontiers for Effect-Coupled Tensor Schedules
 
 This standalone artifact accompanies **Restoration Frontiers for Effect-Coupled Tensor Schedules under Bounded Memory**. It implements a finite event-DAG checker, an untrusted witness producer, exact bounded semantic oracles, a modular-arithmetic interpreter, bounded tensor constructors, robustness audits, and the effect-coupled residual-fan family.
 
@@ -6,7 +6,7 @@ This standalone artifact accompanies **Restoration Frontiers for Effect-Coupled 
 
 For a fixed finite sequential event DAG with exact source tags, read-before-write scalar effects, pairwise-distinct packet destinations, and an externally justified atomic packet contract, a set-valued restoration cover exactly characterizes all-order read provenance. Checked operation correspondence lifts the result to modular-32-bit output equality. A classical maximum-closure flow separately certifies a declared all-order whole-buffer occupancy bound.
 
-A supplied restoration witness is polynomial-time checkable. Finding a smallest witness is NP-complete by a Set Cover reduction. The reference producer therefore uses a deterministic heuristic and the checker validates whatever witness it receives.
+A supplied restoration witness is polynomial-time checkable. Finding a smallest witness is NP-hard; deciding whether one of size at most a supplied bound exists is NP-complete by a Set Cover reduction. The reference producer uses a deterministic heuristic, and the checker validates its supplied witness.
 
 The packet comparison is conditional. In the **fixed-final-read, atom-preserving storage-recoloring class**—same source, events, edges, packets, effect computations, non-scratch destinations, and final scratch read—the shared target uses one cell, whereas every all-order single-restorer target needs at least two. A two-cell quarantine reaches the lower bound. Value forwarding changes the final-read interface. Effect splitting keeps every event identifier, restore, and edge but removes each packet's scratch subeffect, so it preserves the literal event order while changing the packet contract.
 
@@ -14,7 +14,9 @@ The packet comparison is conditional. In the **fixed-final-read, atom-preserving
 
 Certificate execution and the test suite use only the Python standard library;
 the retained portable runs used CPython 3.12.14. Plotting has separate optional
-dependencies in `scripts/README.md`.
+dependencies in `scripts/README.md`. The three conceptual diagrams use the
+optional dependency in figures/requirements.txt and regenerate with
+python -B figures/build_figures.py --outdir /path/to/output, without a TeX backend.
 
 From this directory:
 

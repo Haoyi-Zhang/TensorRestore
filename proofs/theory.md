@@ -79,7 +79,7 @@ least one member of \(G_r\). Taking all good predecessors is complete. Acceptanc
 therefore has a polynomial-size witness and can be checked after reachability is
 computed; finding a smallest witness is a separate optimization problem.
 
-### Theorem 1.1 (minimum restoration witnesses are NP-complete)
+### Theorem 1.1 (bounded-size restoration-witness decision is NP-complete)
 
 Given one read obligation and an integer \(k\), deciding whether an accepted
 restoration set of size at most \(k\) exists is NP-complete, even for one physical
